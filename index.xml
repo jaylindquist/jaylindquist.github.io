@@ -72,6 +72,12 @@
 &lt;p&gt;Oh right, I forgot, git is horrible. &lt;strong&gt;Step 12&lt;/strong&gt; do all that. But none of that exists. This isn&amp;rsquo;t a submodule, it&amp;rsquo;s just a directory with a &lt;code&gt;.git&lt;/code&gt; folder in it. And git can&amp;rsquo;t seem to figure out what&amp;rsquo;s going on.&lt;/p&gt;
 
 &lt;p&gt;OK, &lt;strong&gt;Step 13&lt;/strong&gt; when git gets confusing, nuke it and start over. Delete all &lt;code&gt;.git&lt;/code&gt; folders, remove the repo in GitHub and try again.&lt;/p&gt;
+
+&lt;p&gt;Great, everything is published and pushed. Going to &lt;code&gt;https://jaylindquist.github.io/&lt;/code&gt; I see my site, right? No, &amp;ldquo;Page not found&amp;rdquo;. GitHub pages expects the content to be at the root of the repo, not in a subfolder. I want to version the markdown as well as the build site.&lt;/p&gt;
+
+&lt;p&gt;Hmm, how can I do that? Oh, it&amp;rsquo;s in the Quickstart guide. Create a submodule &amp;ndash; dangit. &lt;strong&gt;Step 14&lt;/strong&gt; time to nuke and start over again.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 15&lt;/strong&gt; time to start tweaking to get all the paths correct.&lt;/p&gt;
 </description>
     </item>
     
