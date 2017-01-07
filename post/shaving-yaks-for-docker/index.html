@@ -1,0 +1,117 @@
+	<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <title>Shaving Yaks for Docker &middot; BitwiseOr</title>
+  
+
+  
+  <link rel="stylesheet" href="http://jaylindquist.github.io/pages/css/poole.css">
+  <link rel="stylesheet" href="http://jaylindquist.github.io/pages/css/syntax.css">
+  <link rel="stylesheet" href="http://jaylindquist.github.io/pages/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="BitwiseOr" />
+</head>
+
+	<body class=" layout-reverse">
+		<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="http://jaylindquist.github.io/pages/"><h1>BitwiseOr</h1></a>
+      <p class="lead">
+       it&#39;s like an &#39;or&#39; with bits 
+      </p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li><a href="/">Home</a> </li>
+      
+    </ul>
+
+    <p>&copy; 2017. All rights reserved. </p>
+  </div>
+</div>
+
+
+		<div class="content container">
+			<div class="post">
+			 	<h1>Shaving Yaks for Docker</h1>
+			  <span class="post-date">Fri, Jan 6, 2017</span>
+			      <p>So, I want to learn Docker.</p>
+
+<p>Docker has matured enough that it can no longer be ignored. It is only a matter of time before every developer is expected to know and understand it.</p>
+
+<p>So, after a little playing around, I wanted to start documenting it. That is, write about it publically for me to reference in the future.</p>
+
+<p>That means I need a blog, but I&rsquo;m sick of Wordpress &ndash; it is too big and too difficult to manage. Can&rsquo;t I just write text and be done instead of needing to log in and format and so on?</p>
+
+<p>I know! I can use GitHub pages to upload static HTML! So, how do I do that? Well, it looks like Jekyll is the way to go. It compiles markdown and you can use git to upload to GitHub.</p>
+
+<p>But, I&rsquo;m on a new machine &ndash; I have git installed, but I don&rsquo;t have a key for github yet. So, <strong>Step 1</strong>, <a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">generate an SSH key</a>.</p>
+
+<p><strong>Step 2</strong> &ndash; <a href="https://github.com/dahlbyk/posh-git">install Posh Git</a> to get a nice command prompt and SSH agent for powershell.</p>
+
+<p>OK, I&rsquo;m all set up to work with GitHub. Now, how do I install Jekyll? <a href="https://gohugo.io/">Hugo</a> seems like a nice way to get started. I&rsquo;ve never heard of it before, how do I install it?</p>
+
+<blockquote>
+<p>Using Homebrew?</p>
+
+<p><code>brew update &amp;&amp; brew install hugo</code></p>
+</blockquote>
+
+<p>Um, no, I&rsquo;m on Windows. Seems like the modern development landscape is very Windows-hostile (not an official chocolatey package in sight). But that&rsquo;s a rant for another time. To the <a href="https://gohugo.io/overview/quickstart/">quickstart guide</a> I go.</p>
+
+<p>Actually, you know what? I&rsquo;m going to be jumping around a lot of directories to get this working, <strong>Step 3</strong> I should install the <a href="https://github.com/tkellogg/Jump-Location">Jump-Location</a> module as well.</p>
+
+<p>All right, back to Hugo. Where was I? Right, <strong>Step 4</strong> installed it (it&rsquo;s a binary, so I needed to <strong>Step 5</strong> create my goto <code>c:\bin</code> and add it to my path &ndash; and thank god, I figured this was going to be an npm module).</p>
+
+<p>So, <strong>Step 6</strong> I create a post in markdown easily enough (this post in fact), but you can&rsquo;t see it until you pick a theme? OK, <strong>Step 7</strong> pick a theme and see how long that takes&hellip;</p>
+
+<p>&hellip;</p>
+
+<p>It took about 25 minutes. That includes <strong>Step 8</strong>, configuring the theme. Wait a minute. <a href="https://www.reddit.com/r/learnprogramming/comments/3dy5w1/jekyll_vs_hugo_best_static_site_generator_out_of/">Hugo isn&rsquo;t the same as Jekyll</a>? All I need is the binary? Yay! I hate installing Ruby crap on Windows (again, another Windows-hostile language / framework / clusterf***, and another rant for another time).</p>
+
+<p>So, now that I have an awesome site, how do I get it onto GitHub? Back to the quickstart guide. I just need to <strong>Step 9</strong> build it with <code>hugo --theme=...</code> and <strong>Step 10</strong> push it to Github.</p>
+
+<p>OK it&rsquo;s on GitHub, but I just got an email that my submodules aren&rsquo;t configured correctly. Submodules? I didn&rsquo;t create a submodule. Oh, crap, I cloned the theme into the <code>themes</code> folder. I hate submodules, how do I make this just files now?</p>
+
+<p>OK, <strong>Step 11</strong> how do you <a href="https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule#1260982">remove all traces of a submodule</a> again?</p>
+
+<blockquote>
+<p><strong>To remove a submodule you need to:</strong></p>
+
+<ol>
+<li>Delete the relevant section from the <code>.gitmodules</code> file.</li>
+<li>Stage the <code>.gitmodules</code> changes <code>git add .gitmodules</code></li>
+<li>Delete the relevant section from <code>.git/config</code>.</li>
+<li>Run <code>git rm --cached path_to_submodule</code> (no trailing slash).</li>
+<li>Run <code>rm -rf .git/modules/path_to_submodule</code></li>
+<li>Commit <code>git commit -m &quot;Removed submodule &lt;name&gt;&quot;</code></li>
+<li>Delete the now untracked submodule files <code>rm -rf path_to_submodule</code></li>
+</ol>
+</blockquote>
+
+<p>Oh right, I forgot, git is horrible. <strong>Step 12</strong> do all that. But none of that exists. This isn&rsquo;t a submodule, it&rsquo;s just a directory with a <code>.git</code> folder in it. And git can&rsquo;t seem to figure out what&rsquo;s going on.</p>
+
+<p>OK, <strong>Step 13</strong> when git gets confusing, nuke it and start over. Delete all <code>.git</code> folders, remove the repo in GitHub and try again.</p>
+
+			</div>
+
+			
+		</div>
+
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BitwiseOr</title>
+    <link>http://jaylindquist.github.io/pages/index.xml</link>
+    <description>Recent content on BitwiseOr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 06 Jan 2017 20:54:58 -0600</lastBuildDate>
+    <atom:link href="http://jaylindquist.github.io/pages/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Shaving Yaks for Docker</title>
+      <link>http://jaylindquist.github.io/pages/post/shaving-yaks-for-docker/</link>
+      <pubDate>Fri, 06 Jan 2017 20:54:58 -0600</pubDate>
+      
+      <guid>http://jaylindquist.github.io/pages/post/shaving-yaks-for-docker/</guid>
+      <description>&lt;p&gt;So, I want to learn Docker.&lt;/p&gt;
+
+&lt;p&gt;Docker has matured enough that it can no longer be ignored. It is only a matter of time before every developer is expected to know and understand it.&lt;/p&gt;
+
+&lt;p&gt;So, after a little playing around, I wanted to start documenting it. That is, write about it publically for me to reference in the future.&lt;/p&gt;
+
+&lt;p&gt;That means I need a blog, but I&amp;rsquo;m sick of Wordpress &amp;ndash; it is too big and too difficult to manage. Can&amp;rsquo;t I just write text and be done instead of needing to log in and format and so on?&lt;/p&gt;
+
+&lt;p&gt;I know! I can use GitHub pages to upload static HTML! So, how do I do that? Well, it looks like Jekyll is the way to go. It compiles markdown and you can use git to upload to GitHub.&lt;/p&gt;
+
+&lt;p&gt;But, I&amp;rsquo;m on a new machine &amp;ndash; I have git installed, but I don&amp;rsquo;t have a key for github yet. So, &lt;strong&gt;Step 1&lt;/strong&gt;, &lt;a href=&#34;https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/&#34;&gt;generate an SSH key&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 2&lt;/strong&gt; &amp;ndash; &lt;a href=&#34;https://github.com/dahlbyk/posh-git&#34;&gt;install Posh Git&lt;/a&gt; to get a nice command prompt and SSH agent for powershell.&lt;/p&gt;
+
+&lt;p&gt;OK, I&amp;rsquo;m all set up to work with GitHub. Now, how do I install Jekyll? &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; seems like a nice way to get started. I&amp;rsquo;ve never heard of it before, how do I install it?&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Using Homebrew?&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;brew update &amp;amp;&amp;amp; brew install hugo&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Um, no, I&amp;rsquo;m on Windows. Seems like the modern development landscape is very Windows-hostile (not an official chocolatey package in sight). But that&amp;rsquo;s a rant for another time. To the &lt;a href=&#34;https://gohugo.io/overview/quickstart/&#34;&gt;quickstart guide&lt;/a&gt; I go.&lt;/p&gt;
+
+&lt;p&gt;Actually, you know what? I&amp;rsquo;m going to be jumping around a lot of directories to get this working, &lt;strong&gt;Step 3&lt;/strong&gt; I should install the &lt;a href=&#34;https://github.com/tkellogg/Jump-Location&#34;&gt;Jump-Location&lt;/a&gt; module as well.&lt;/p&gt;
+
+&lt;p&gt;All right, back to Hugo. Where was I? Right, &lt;strong&gt;Step 4&lt;/strong&gt; installed it (it&amp;rsquo;s a binary, so I needed to &lt;strong&gt;Step 5&lt;/strong&gt; create my goto &lt;code&gt;c:\bin&lt;/code&gt; and add it to my path &amp;ndash; and thank god, I figured this was going to be an npm module).&lt;/p&gt;
+
+&lt;p&gt;So, &lt;strong&gt;Step 6&lt;/strong&gt; I create a post in markdown easily enough (this post in fact), but you can&amp;rsquo;t see it until you pick a theme? OK, &lt;strong&gt;Step 7&lt;/strong&gt; pick a theme and see how long that takes&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;It took about 25 minutes. That includes &lt;strong&gt;Step 8&lt;/strong&gt;, configuring the theme. Wait a minute. &lt;a href=&#34;https://www.reddit.com/r/learnprogramming/comments/3dy5w1/jekyll_vs_hugo_best_static_site_generator_out_of/&#34;&gt;Hugo isn&amp;rsquo;t the same as Jekyll&lt;/a&gt;? All I need is the binary? Yay! I hate installing Ruby crap on Windows (again, another Windows-hostile language / framework / clusterf***, and another rant for another time).&lt;/p&gt;
+
+&lt;p&gt;So, now that I have an awesome site, how do I get it onto GitHub? Back to the quickstart guide. I just need to &lt;strong&gt;Step 9&lt;/strong&gt; build it with &lt;code&gt;hugo --theme=...&lt;/code&gt; and &lt;strong&gt;Step 10&lt;/strong&gt; push it to Github.&lt;/p&gt;
+
+&lt;p&gt;OK it&amp;rsquo;s on GitHub, but I just got an email that my submodules aren&amp;rsquo;t configured correctly. Submodules? I didn&amp;rsquo;t create a submodule. Oh, crap, I cloned the theme into the &lt;code&gt;themes&lt;/code&gt; folder. I hate submodules, how do I make this just files now?&lt;/p&gt;
+
+&lt;p&gt;OK, &lt;strong&gt;Step 11&lt;/strong&gt; how do you &lt;a href=&#34;https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule#1260982&#34;&gt;remove all traces of a submodule&lt;/a&gt; again?&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;To remove a submodule you need to:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Delete the relevant section from the &lt;code&gt;.gitmodules&lt;/code&gt; file.&lt;/li&gt;
+&lt;li&gt;Stage the &lt;code&gt;.gitmodules&lt;/code&gt; changes &lt;code&gt;git add .gitmodules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Delete the relevant section from &lt;code&gt;.git/config&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;git rm --cached path_to_submodule&lt;/code&gt; (no trailing slash).&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;rm -rf .git/modules/path_to_submodule&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Commit &lt;code&gt;git commit -m &amp;quot;Removed submodule &amp;lt;name&amp;gt;&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Delete the now untracked submodule files &lt;code&gt;rm -rf path_to_submodule&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Oh right, I forgot, git is horrible. &lt;strong&gt;Step 12&lt;/strong&gt; do all that. But none of that exists. This isn&amp;rsquo;t a submodule, it&amp;rsquo;s just a directory with a &lt;code&gt;.git&lt;/code&gt; folder in it. And git can&amp;rsquo;t seem to figure out what&amp;rsquo;s going on.&lt;/p&gt;
+
+&lt;p&gt;OK, &lt;strong&gt;Step 13&lt;/strong&gt; when git gets confusing, nuke it and start over. Delete all &lt;code&gt;.git&lt;/code&gt; folders, remove the repo in GitHub and try again.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

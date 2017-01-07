@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://jaylindquist.github.io/pages/post/shaving-yaks-for-docker/</loc>
+    <lastmod>2017-01-06T20:54:58-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jaylindquist.github.io/pages/</loc>
+    <lastmod>2017-01-06T20:54:58-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jaylindquist.github.io/pages/post/</loc>
+    <lastmod>2017-01-06T20:54:58-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
