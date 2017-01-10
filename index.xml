@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>BitwiseOr</title>
-    <link>https://jaylindquist.github.io/index.xml</link>
-    <description>Recent content on BitwiseOr</description>
+    <title>BitwiseOR</title>
+    <link>/index.xml</link>
+    <description>Recent content on BitwiseOR</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 06 Jan 2017 20:54:58 -0600</lastBuildDate>
-    <atom:link href="https://jaylindquist.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Shaving Yaks for Docker</title>
-      <link>https://jaylindquist.github.io/post/shaving-yaks-for-docker/</link>
+      <link>/post/2017/01/06/shaving-yaks-for-docker/</link>
       <pubDate>Fri, 06 Jan 2017 20:54:58 -0600</pubDate>
       
-      <guid>https://jaylindquist.github.io/post/shaving-yaks-for-docker/</guid>
+      <guid>/post/2017/01/06/shaving-yaks-for-docker/</guid>
       <description>&lt;p&gt;So, I want to learn Docker.&lt;/p&gt;
 
 &lt;p&gt;Docker has matured enough that it can no longer be ignored. It is only a matter of time before every developer is expected to know and understand it.&lt;/p&gt;
@@ -86,6 +86,1012 @@
 &lt;p&gt;Wait.&lt;/p&gt;
 
 &lt;p&gt;Wasn&amp;rsquo;t I going to do something with Docker?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Adding Static Content To Spring Boot MVC</title>
+      <link>/post/2013/09/25/adding-static-content-to-spring-boot-mvc/</link>
+      <pubDate>Wed, 25 Sep 2013 21:46:54 +0000</pubDate>
+      
+      <guid>/post/2013/09/25/adding-static-content-to-spring-boot-mvc/</guid>
+      <description>&lt;p&gt;As I learn new frameworks, I often get a good idea stuck in my head that I really want to implement. Often, the idea is overly ambitious for my knowledge of the tool, but sometimes it hits the sweet spot between &amp;ldquo;That should be pretty easy to implement&amp;rdquo; and &amp;ldquo;I really don&amp;rsquo;t want to dig into the documentation to figure this out&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Using a tool that is rather young, like Spring Boot, makes me dread the learning process even more as they often don&amp;rsquo;t have the documentation I need in place, so instead I need to dig through source code and examples that look related.&lt;/p&gt;
+
+&lt;p&gt;My plan was to add static content to a Spring Boot web site. I&amp;rsquo;ve seen the dynamic content via Spring &lt;code&gt;@Controllers&lt;/code&gt;, but I still need to add images and CSS if I want a decent site.&lt;/p&gt;
+
+&lt;p&gt;So, my journey began at Spring Boot&amp;rsquo;s GitHub repo, which has a large number of undocumented &lt;a href=&#34;https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples&#34; title=&#34;Spring Boot Samples&#34;&gt;examples&lt;/a&gt;. My answer, of course, lay beneath the folders of the well named &lt;a href=&#34;https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-web-static&#34;&gt;spring-boot-sample-web-static&lt;/a&gt; example, and like all other Spring Boot defaults, it was an obvious solution.&lt;/p&gt;
+
+&lt;p&gt;Add the static files to &lt;code&gt;src/main/webapp&lt;/code&gt;. Where else would you put it?&lt;/p&gt;
+
+&lt;p&gt;My own example is now on &lt;a href=&#34;https://github.com/jaylindquist/spring-boot-service-and-static&#34; title=&#34;Spring Boot Service with Static Content&#34;&gt;GitHub&lt;/a&gt; which combines the Ember.js template project to the Spring Boot REST Template project.&lt;/p&gt;
+
+&lt;p&gt;The last step we need to create a fully functional application is to modify the Ember.js template to pull data from the REST services.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Creating Test Services with Spring Boot</title>
+      <link>/post/2013/09/20/creating-test-services-with-spring-boot/</link>
+      <pubDate>Sat, 21 Sep 2013 03:39:35 +0000</pubDate>
+      
+      <guid>/post/2013/09/20/creating-test-services-with-spring-boot/</guid>
+      <description>
+
+&lt;p&gt;One of the coolest new technologies from the Spring Foundation has to be the new &lt;a href=&#34;http://spring.io/blog/2013/08/06/spring-boot-simplifying-spring-for-everyone&#34; title=&#34;Spring Boot   Simplifying Spring for Everyone&#34;&gt;Spring Boot&lt;/a&gt; project. Spring Boot takes all the common template / bootstrap / setup code that everyone is doing already and just does it for you.&lt;/p&gt;
+
+&lt;p&gt;It also covers all the main Spring technologies: Spring MVC, Spring Batch, Spring Security, etc. Need a database? Just add the schema. Need a service? Just add a request mapping. Spring Boot will interpret your setup and start a server if needed.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spring-projects/spring-boot&#34; title=&#34;Spring Boot on Github&#34;&gt;GitHub&lt;/a&gt; already has the basics for creating simple examples. For example, from the Spring Blog (once you have the Spring Boot command line installed) the following groovy code will run a web site:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Controller
+class ThisWillActuallyRun {
+    @RequestMapping(&amp;quot;/&amp;quot;)
+    @ResponseBody
+    String home() {
+        return &amp;quot;Hello World!&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Amazingly simple to use.&lt;/p&gt;
+
+&lt;p&gt;It gets a little more complicated when you need an advanced site. Specifically, what do we need in order to create a database driven REST data service? All of the code for this example is in &lt;a href=&#34;https://github.com/jaylindquist/spring-boot-service-template&#34; title=&#34;Spring Boot Service Template&#34; target=&#34;_blank&#34;&gt;my GitHhub repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;build-file&#34;&gt;Build file&lt;/h2&gt;
+
+&lt;p&gt;Something that I always appreciate, is a gradle plugin, and Spring Boot comes through. The following build.gradle loads in Spring Boot, a few more dependencies to support Groovy, an in memory database and JSON parsing for the service, then adds a &lt;code&gt;run&lt;/code&gt; command to make life easier.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url &amp;quot;http://repo.springsource.org/milestone&amp;quot;
+        }
+    }
+    dependencies {
+        classpath(&amp;quot;org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M3&amp;quot;)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url &amp;quot;http://repo.springsource.org/milestone&amp;quot;
+    }
+}
+
+apply plugin: &#39;groovy&#39;
+apply plugin: &#39;eclipse&#39;
+apply plugin: &#39;spring-boot&#39;
+
+sourceCompatibility = 1.6
+version = &#39;1.0&#39;
+
+dependencies {
+    compile &#39;org.codehaus.groovy:groovy-all:2.1.7&#39;
+    compile &#39;org.springframework.boot:spring-boot-starter-web:0.5.0.M3&#39;
+    compile &#39;org.springframework:spring-jdbc:4.0.0.M3&#39;
+    runtime &#39;org.codehaus.jackson:jackson-mapper-asl:1.9.12&#39;
+    runtime &#39;org.hsqldb:hsqldb:latest.release&#39;
+}
+
+task run(type: JavaExec) {
+    classpath configurations.runtime, sourceSets.main.output
+    main = &#39;com.mycom.App&#39;
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = &#39;1.7&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h2&gt;
+
+&lt;p&gt;You have two options to run Spring Boot projects. The first is simply use the Spring Boot command line against a class you want to execute, as with the example from the Spring blog. The second options is for more complex projects that are set up to use an IDE and custom project structure. We&amp;rsquo;ll use the latter for this example.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve used the standard Groovy Jar project structure for Gradle, but any structure will do. Note that, even though we are building a web app, the project structure is for a Jar. We have no need to create the web.xml.&lt;/p&gt;
+
+&lt;h2 id=&#34;main&#34;&gt;Main&lt;/h2&gt;
+
+&lt;p&gt;From the build file above, the run task simply executes the main class &lt;code&gt;com.mycom.App&lt;/code&gt;. This class will tell Spring Boot how to run our app and set up all our autowiring needs.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.mycom 
+
+import org.springframework.boot.*
+import org.springframework.boot.autoconfigure.*
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.*
+import org.springframework.web.bind.annotation.*
+
+@Configuration
+@ComponentScan(basePackages = &amp;quot;com.mycom&amp;quot; )
+@EnableAutoConfiguration
+class App {
+    public static void main(String[] args) throws Exception {
+        def app = new SpringApplication(App.class)
+        app.showBanner = false
+        app.run(args)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&amp;rsquo;ve shown that &lt;a href=&#34;https://github.com/spring-projects/spring-boot/blob/master/spring-boot/src/main/java/org/springframework/boot/SpringApplication.java&#34; title=&#34;Spring Application Source&#34; target=&#34;_blank&#34;&gt;&lt;code&gt;SpringApplication&lt;/code&gt;&lt;/a&gt; actually includes a few custom properties you may be interested in. However, in most cases, the static &lt;code&gt;run(Object, args)&lt;/code&gt; should be enough. Otherwise, note that this class configures the rest of the classes in &lt;code&gt;com.mycom&lt;/code&gt; for Spring wiring.&lt;/p&gt;
+
+&lt;h2 id=&#34;app-settings&#34;&gt;App Settings&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s take a detour into the resources directory. Spring Boot has additional configuration steps in the &lt;code&gt;application.properties&lt;/code&gt; file. Simply create this file, put it on your classpath, and fill in what is needed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;spring.application.name=spring-boot-service-template
+server.port:9080
+logging.file:logs/system.log
+
+spring.database.schema=classpath*:schema-hsqldb.sql
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Application name, server port and logging file are all completely optional and only serve as examples. The only important information in this file is the database schema. which is also in the resources directory. Spring Boot will load the database file and create the &lt;code&gt;DataSource&lt;/code&gt; for us.&lt;/p&gt;
+
+&lt;h2 id=&#34;schema&#34;&gt;Schema&lt;/h2&gt;
+
+&lt;p&gt;Here&amp;rsquo;s our actual data. We&amp;rsquo;ll follow the model from the &lt;a href=&#34;http://bitwiseor.com/2013/08/03/lets-set-up-ember-js/&#34; title=&#34;Lets set up Ember.js&#34; target=&#34;_blank&#34;&gt;Ember example&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We have Franchises which represent a game franchise, like Legend of Zelda&lt;/li&gt;
+&lt;li&gt;Within each franchise, we have a Game&lt;/li&gt;
+&lt;li&gt;Each game has a release date&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Our schema creates the tables and sample data in one file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;CREATE TABLE franchises (
+    id BIGINT NOT NULL PRIMARY KEY,
+    title VARCHAR(255)
+);
+
+CREATE TABLE games (
+    id BIGINT NOT NULL,
+    franchise_id BIGINT NOT NULL, 
+    name VARCHAR(255),
+    release DATE,
+    FOREIGN KEY (franchise_id) REFERENCES franchises(id)
+);
+
+INSERT INTO franchises 
+    (id, title) VALUES
+    (0, &#39;Final Fantasy&#39;),
+    (1, &#39;Fire Emblem&#39;),
+    (2, &#39;The Legend of Zelda&#39;);
+
+INSERT INTO games
+    (franchise_id, id, name, release) VALUES
+    (0, 0, &#39;Final Fantasy Type 0&#39;, &#39;2011-10-27&#39;),
+    (0, 1, &#39;Final Fantasy IV: The After Years&#39;, &#39;2008-02-18&#39;),
+    (0, 2, &#39;Final Fantasy VII&#39;, &#39;1997-09-07&#39;),
+    (1, 0, &#39;Fire Emblem Awakening&#39;, &#39;2013-02-04&#39;),
+    (1, 1, &#39;Fire Emblem Shadow Dragon&#39;, &#39;2009-02-16&#39;),
+    (2, 0, &#39;The Legend of Zelda: Skyward Sword&#39;, &#39;2011-11-20&#39;),
+    (2, 1, &#39;The Legend of Zelda: Ocarina of Time&#39;, &#39;2007-02-26&#39;),
+    (2, 2, &#39;The Legend of Zelda: A Link to the Past&#39;, &#39;1991-11-21&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;logging&#34;&gt;Logging&lt;/h2&gt;
+
+&lt;p&gt;Just to note that logging is already configured for Logback and SLF4J. A logback.xml on the classpath will configure logging as you would expect.&lt;/p&gt;
+
+&lt;h2 id=&#34;service-code&#34;&gt;Service Code&lt;/h2&gt;
+
+&lt;p&gt;Now to the actual service code that all the above supports. Spring Boot does all the work on configuring Spring MVC for us, so all that is left for us to do is the actual business logic for the REST services.&lt;/p&gt;
+
+&lt;p&gt;The services themselves will simply return the data from the database based on the resource requested. So, &lt;code&gt;/franchise/1&lt;/code&gt; will return Fire Emblem franchise while &lt;code&gt;/franchise/1/game/0&lt;/code&gt; will return Fire Emblem Awakening with its release date.&lt;/p&gt;
+
+&lt;p&gt;For Frachises:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.mycom
+
+import javax.sql.DataSource
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
+
+@Controller
+class Franchise {
+    private JdbcTemplate jdbcTemplate
+
+    @Autowired
+    public Franchise(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource)
+    }
+    
+    @ResponseBody
+    @RequestMapping(&#39;/franchise/{id}&#39;)
+    String franchiseId(@PathVariable Long id) {
+        try {
+            return jdbcTemplate.queryForMap(&#39;SELECT id, title FROM franchises WHERE id=?&#39;, id)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+    
+    @ResponseBody
+    @RequestMapping(&#39;/franchise/&#39;)
+    String franchises() {
+        try {
+            return jdbcTemplate.queryForList(&#39;SELECT id, title FROM franchises&#39;)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And similarly for Games:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.mycom
+
+import javax.sql.DataSource
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
+
+import com.fasterxml.jackson.databind.node.NodeCursor.Object;
+
+@Controller
+class Game {
+    private JdbcTemplate jdbcTemplate
+
+    @Autowired
+    public Game(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource)
+    }
+    
+    @ResponseBody
+    @RequestMapping(&#39;/franchise/{franchiseId}/game/{id}&#39;)
+    String gameId(@PathVariable Long franchiseId, @PathVariable Long id) {
+        try {
+            return jdbcTemplate.queryForMap(&#39;SELECT id, name, release FROM games WHERE franchise_id=? AND id=?&#39;, franchiseId, id)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+    
+    @ResponseBody
+    @RequestMapping(&#39;/franchise/{franchiseId}/game&#39;)
+    String games(@PathVariable Long franchiseId) {
+        try {
+            return jdbcTemplate.queryForList(&#39;SELECT id, name, release FROM games WHERE franchise_id=?&#39;, franchiseId)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;running&#34;&gt;Running&lt;/h2&gt;
+
+&lt;p&gt;And that&amp;rsquo;s it. Six code files and a build file gives us a full fledged REST service running locally, ready for an app to start consuming it.&lt;/p&gt;
+
+&lt;p&gt;To run the sample, open a command prompt and execute &lt;code&gt;gradlew run&lt;/code&gt;. This will download dependencies, compile the code, package it into a jar and execute the main class.&lt;/p&gt;
+
+&lt;p&gt;Visit &lt;code&gt;http://localhost:9080/franchise/1&lt;/code&gt; and other variants to see the JSON responses.&lt;/p&gt;
+
+&lt;h2 id=&#34;wrap-up&#34;&gt;Wrap up&lt;/h2&gt;
+
+&lt;p&gt;Not only was the above easy to learn, but it opens up a lot of possibilities for local test services. Spring Boot can also easily be deployed to &lt;a href=&#34;http://www.cloudfoundry.com/&#34; target=&#34;_blank&#34;&gt;Cloud Foundry&lt;/a&gt;, Spring&amp;rsquo;s favored cloud provider.&lt;/p&gt;
+
+&lt;p&gt;In the end, how is Spring Boot anything other than magic? We currently have enough trouble accepting Groovy in an enterprise environment, and Groovy is just making Java easier to work with. Spring Boot makes Spring apps easier, so it will face the same hurdles in large organizations that Groovy faces. And, just like Groovy, the best way to introduce Spring Boot may be through testing. Because, &amp;ldquo;Who cares if it&amp;rsquo;s only used for tests&amp;rdquo;. Then, once we have it in all our tests, it will naturally begin to grow until we have production Spring Boot apps.&lt;/p&gt;
+
+&lt;p&gt;Hopefully, by the time this project reaches 1.0, we&amp;rsquo;ll see a lot of clever new features to make our Spring developer&amp;rsquo;s lives easier.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Do Not Fear the Computer</title>
+      <link>/post/2013/08/24/do-not-fear-the-computer/</link>
+      <pubDate>Sun, 25 Aug 2013 03:40:36 +0000</pubDate>
+      
+      <guid>/post/2013/08/24/do-not-fear-the-computer/</guid>
+      <description>&lt;p&gt;When starting anything new, most people have a fear of doing something, anything, wrong. For me, it is one of the most difficult reactions that I need to overcome before truly understanding a technology.&lt;/p&gt;
+
+&lt;p&gt;My own, personal, fear manifests as getting the implementation wrong. When I start learning a new tool or language, I become obsessed over &amp;ldquo;doing it right&amp;rdquo;. With a simple implementation in hand, I&amp;rsquo;ll start searching forums or digging into the source to try and uncover the best way to accomplish my goal. This usually wastes hours of my time when the &amp;ldquo;wrong way&amp;rdquo; works just fine. In the end, I&amp;rsquo;ll still use my simple implementation as the want for breadth of knowledge starts to overcome the want for depth of knowledge.&lt;/p&gt;
+
+&lt;p&gt;If I continue learning the tool, I&amp;rsquo;ll look back in a month&amp;rsquo;s or year&amp;rsquo;s time and be &lt;a href=&#34;http://bitwiseor.com/2013/05/20/you-should-be-ashamed-of-yourself/&#34; title=&#34;You Should Be Ashamed of Yourself&#34;&gt;ashamed&lt;/a&gt; of my foolish, ignorant, younger self. So, really, there&amp;rsquo;s no need for the wasted time.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve also seen a similar issue with some non-technical folks when it comes to computers and software in general. There is an overwhelming sense that their computer is a ticking time bomb and the wrong button or click will blow the computer to pieces or crash the OS. My wife had this fear in abundance. Over time, with a bit of hand holding, she worked through this fear, and I&amp;rsquo;m glad to say she now knows that good software understands that the user makes mistakes. That&amp;rsquo;s why &lt;a href=&#34;http://en.wikipedia.org/wiki/Undo&#34; title=&#34;Undo&#34;&gt;PARC invented the undo command&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Fear of the computer interrupts the idea-to-execution process. Alice has an idea and wants to use her software to make it manifest. If the software is so complex that she can&amp;rsquo;t find command needed to complete the task at hand, then she may give up. Fear of the computer prevents experimentation.&lt;/p&gt;
+
+&lt;p&gt;Proper software needs to encourage experimentation. Any action must be reversible; any command must make its effects clear; any permanent change must be preventable. Naming of actions must take priority over all other UI features. Should posts be &amp;ldquo;Submitted&amp;rdquo; or &amp;ldquo;Published&amp;rdquo;. Depending on the context, both words may be synonyms, or they could imply non-permanent or permanent actions.&lt;/p&gt;
+
+&lt;p&gt;Proper software needs to understand that user&amp;rsquo;s fear that they may be &amp;ldquo;doing it wrong&amp;rdquo;. Either the software needs to make it clear that the user is indeed &amp;ldquo;doing it right&amp;rdquo; or at least let the user know they may be doing it wrong.&lt;/p&gt;
+
+&lt;p&gt;In the end, however it is accomplished, the software must take away the user&amp;rsquo;s fear if the creators want their work to be used.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Vulnerabilies of Good Intentions</title>
+      <link>/post/2013/08/21/vulnerabilies-of-good-intentions/</link>
+      <pubDate>Thu, 22 Aug 2013 04:25:28 +0000</pubDate>
+      
+      <guid>/post/2013/08/21/vulnerabilies-of-good-intentions/</guid>
+      <description>&lt;p&gt;One of the saddest vulnerabilities introduced into applications are those that are created by design. These vulnerabilities are explicitly written into application requirements or have specific user stories. Often, the vulnerability takes on the form of functionality requested by one or more stakeholders.&lt;/p&gt;
+
+&lt;p&gt;Consider the following: &lt;a href=&#34;http://www.telegraph.co.uk/technology/facebook/8938725/Facebook-privacy-flaw-exposes-Mark-Zuckerberg-photos.html&#34;&gt;Facebook privacy flaw exposes Mark Zuckerberg photos&lt;/a&gt;. This flaw was created with only good intentions in mind. Facebook prides itself on keeping the site clean and inoffensive. Owners of the site look for any tool that can help weed out the bad photos from the good. Considering the &lt;a href=&#34;http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox&#34;&gt;size of Facebook&amp;rsquo;s image library&lt;/a&gt;, I would want help as well.&lt;/p&gt;
+
+&lt;p&gt;So, someone had a great idea: we should crowdsource the effort. Some of us can manually look through photos; maybe we can create an automated scanner to tag possibly offensive pictures; but our best bet is our user base. Those who are actually offended will be empowered to report offending pics.&lt;/p&gt;
+
+&lt;p&gt;Enter the Reporting feature:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Alice sees Eve&amp;rsquo;s photo on Facebook. The photo itself may or may not follow Facebook&amp;rsquo;s guidelines, but all that really matters here is that Alice is taken aback.&lt;/li&gt;
+&lt;li&gt;Alice clicks the &amp;ldquo;Report&amp;rdquo; link to alert Facebook of this deeply offensive image. She&amp;rsquo;ll need to fill out some information about why it is offensive, but it&amp;rsquo;s straight forward and she submits the form.
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This feature has a few benefits: Facebook staff can be put to better use reviewing possibly offensive images instead of random images; Users get to feel good about themselves that they helped clean up a site they love; repeat offenders can be duly punished to the limits of  Facebook&amp;rsquo;s Terms and Conditions.&lt;/p&gt;
+
+&lt;p&gt;However, where there is one offensive picture, there could be many more. An empowered user who has already reported an image has it set in her mind that image reporting is her duty. If Alice saw the rest of Eve&amp;rsquo;s photos, she could review those as well. So, we tweak the code and a new feature is born:Alice sees Eve&amp;rsquo;s photo on Facebook. The photo itself may or may not follow Facebook&amp;rsquo;s guidelines, but all that really matters here is that Alice is taken aback.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Alice sees Eve&amp;rsquo;s photo on Facebook. The photo itself may or may not follow Facebook&amp;rsquo;s guidelines, but all that really matters here is that Alice is taken aback.&lt;/li&gt;
+&lt;li&gt;Alice clicks the &amp;ldquo;Report&amp;rdquo; link to alert Facebook of this deeply offensive image. She&amp;rsquo;ll need to fill out some information about why it is offensive, but it&amp;rsquo;s straight forward and she submits the form.&lt;/li&gt;
+&lt;li&gt;Facebook show&amp;rsquo;s Alice the rest of Eve&amp;rsquo;s pictures in the hope that other offensive images will be reported.&lt;/li&gt;
+&lt;li&gt;Alice selects more offensive images and her duty is done.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is great functionality: User feel more empowered, as though they are helping the community as partial owners of the site; Facebook staff has even less work to do; repeat offenders are identified quicker than ever before.&lt;/p&gt;
+
+&lt;p&gt;However, there is one flaw in the plan that was overlooked. Because any image can be flagged as inappropriate, user avatars can be flagged as well. Avatars are public as they help with identification when searching for friends. So now, we have a way to report anyone&amp;rsquo;s avatar - which is good - but the new feature will then show us the rest of the user&amp;rsquo;s library - which is bad. It is bad because we now have access to anyone&amp;rsquo;s image library, no matter what privacy setting they used, and all we need to do is report the user&amp;rsquo;s avatar.&lt;/p&gt;
+
+&lt;p&gt;Finally, this takes us down to the end game: Mark Zuckerberg, CEO and founder of Facebook, holding a dead chicken by the legs. Private photos posted on the internet for all to see. All from functionality and requirements requested by the business. Functionality with only good intentions, but with a security hole one can drive a truck through.&lt;/p&gt;
+
+&lt;p&gt;How do we stop this? Requirements and use cases need to include&lt;a href=&#34;https://www.owasp.org/index.php/Application_Threat_Modeling&#34;&gt; abuse cases&lt;/a&gt; as well. That is, when listing out features and how they will be used, take a moment to think of how the features can be misused as well.&lt;/p&gt;
+
+&lt;p&gt;As a malicious user, I want to access private user photos in order to cause harm and mischief. How can I accomplish this?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lets set up Ember.js</title>
+      <link>/post/2013/08/03/lets-set-up-ember-js/</link>
+      <pubDate>Sun, 04 Aug 2013 04:12:36 +0000</pubDate>
+      
+      <guid>/post/2013/08/03/lets-set-up-ember-js/</guid>
+      <description>
+
+&lt;p&gt;&lt;a title=&#34;Ember.js home page&#34; href=&#34;http://emberjs.com/&#34;&gt;Ember.js&lt;/a&gt; is an interesting creature. This is the first client-side MVC I&amp;rsquo;ve looked into. Apparently calling these applications &amp;ldquo;single page apps&amp;rdquo; are looked down upon, even though they are driven from a single HTML page. Single DOM applications seems more appropriate.&lt;/p&gt;
+
+&lt;p&gt;Based on previous experience learning new technologies, I&amp;rsquo;ve found that I am only able to understand the technology once I have a model of what&amp;rsquo;s going on behind the scenes. It was only when I realized how reflection and Java Beans could be used to implement Spring&amp;rsquo;s inversion of control that I could really start working with it.&lt;/p&gt;
+
+&lt;p&gt;Before this understanding occurs, everything is magic. I don&amp;rsquo;t like programming that runs on magic as magic is rather unpredictable.&lt;/p&gt;
+
+&lt;p&gt;With Ember.js, I struggled to follow how the examples and samples pulled everything together, but then I read the &lt;a title=&#34;Ember.js Naming Conventions&#34; href=&#34;http://emberjs.com/guides/concepts/naming-conventions/&#34;&gt;Naming Conventions&lt;/a&gt; document, and everything became clear.&lt;/p&gt;
+
+&lt;p&gt;To be honest, the Ember guides are quite good. They take a conversational approach to documentation instead of a fact based approach.&lt;/p&gt;
+
+&lt;p&gt;However, all the examples available so far have tried too hard to make the example &amp;ldquo;pretty&amp;rdquo; or &amp;ldquo;realistic&amp;rdquo;. That is, the examples have plenty of HTML structure to support CSS styles and the data model pulls from a related REST service with Ember Data. This detracts from the learning process. Yes, the result looks pretty, and the data is dynamic, but the example code is cluttered and involves concepts outside of Ember.js itself.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-ugly-app&#34;&gt;The Ugly App&lt;/h2&gt;
+
+&lt;p&gt;So, here&amp;rsquo;s my example, an ugly Ember.js app. It does very little: When we visit the app, a list of game franchises are listed; clicking on a franchise will list games in the franchise; and clicking on a game will show us the original release date.&lt;/p&gt;
+
+&lt;p&gt;This is supposed to be simple and will help show off different parts of Ember such as routes and how they connect the model to the template.&lt;/p&gt;
+
+&lt;p&gt;Lets get the annoying stuff out the way: This example uses Ember.js 1.0 RC6. It consists of an HTML page, a javascript file representing the application, and all dependencies. You can find the code on GitHub here: &lt;a href=&#34;https://github.com/jaylindquist/ember-template&#34;&gt;https://github.com/jaylindquist/ember-template&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Since we aren&amp;rsquo;t using any styles, out base HTML page is a bit bare, but we still need it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;meta charset=&amp;quot;utf-8&amp;quot; /&amp;gt;
+&amp;lt;title&amp;gt;Ember Template&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+
+&amp;lt;!-- ember templates go here --&amp;gt;
+
+&amp;lt;script src=&amp;quot;js/libs/jquery-1.9.1.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/libs/handlebars-1.0.0-rc.4.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/libs/ember-1.0.0-rc.6.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/libs/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/games.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the Ember heavy lifting takes place in &lt;code&gt;js/games.js&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;ember-parts&#34;&gt;Ember Parts&lt;/h2&gt;
+
+&lt;p&gt;In order to get Ember up and running, we need some common components:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application - the main Ember application&lt;/li&gt;
+&lt;li&gt;Model - our actual data with methods to get at the information&lt;/li&gt;
+&lt;li&gt;Router - a description of the paths supported by the application and how the app will determine which models to load&lt;/li&gt;
+&lt;li&gt;Routes - how to tell ember which models to load based on the current URL / route&lt;/li&gt;
+&lt;li&gt;Templates - how to actually display the information to the user&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;application&#34;&gt;Application&lt;/h3&gt;
+
+&lt;p&gt;We start with the Application. This is easy enough:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;App = Ember.Application.create({});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;model&#34;&gt;Model&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;ll say little about the model for now. In this case, I am not using Ember Data. Instead, I am using a plain old JavaScript object. I then store the object in the application for easy reference.&lt;/p&gt;
+
+&lt;p&gt;All you really need to know is that the methods on the model exist and do what they say:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Store = {
+    franchises: Ember.A(),
+    defaultFranchise: function() {...},
+    get: function(id) {...},
+    init: function() {
+        if(this.franchises.length == 0) {
+            this.franchises.pushObject(App.Franchise.create({
+                id: 0,
+                title:&#39;Final Fantasy&#39;,
+                games: Ember.A(),
+                defaultGame: function() {...},
+                get: function(id) {...},
+                init: function() {...}
+            }));
+            this.franchises.pushObject(App.Franchise.create({...}));
+            ...
+        });
+    }
+};
+
+App.Franchise = Ember.Object.extend({});
+App.Game = Ember.Object.extend({});
+
+// assign the model to the App for reference
+App.GameStore = Store;
+App.GameStore.init();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;router&#34;&gt;Router&lt;/h3&gt;
+
+&lt;p&gt;The router will define most of our application. When creating a router, you define the routes with names and paths. Once you have a name of a route, Ember will automatically look for routes and controllers with specific names. So, a route named &lt;code&gt;franchise&lt;/code&gt; will have a &lt;code&gt;FranchiseRoute&lt;/code&gt; and a &lt;code&gt;FranchiseController&lt;/code&gt;. See the naming conventions for more information.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;App.Router.map(function() {
+    this.resource(&#39;franchise&#39;, { path:&#39;/franchise/:franchise_id&#39;}, function() {
+        this.resource(&#39;game&#39;, { path: &#39;/game/:game_id&#39; });
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, we&amp;rsquo;ve defined two routes, a &lt;code&gt;franchise&lt;/code&gt; route that Ember will load whenever &lt;code&gt;/franchise&lt;/code&gt; is part of the path. An optional franchise ID can also be a part of the path. The second route is under the &lt;code&gt;franchise&lt;/code&gt; route. Whenever Ember sees the &lt;code&gt;/franchise/{franchise_id}/game&lt;/code&gt; URL, the &lt;code&gt;game&lt;/code&gt; route will be loaded.&lt;/p&gt;
+
+&lt;h3 id=&#34;routes&#34;&gt;Routes&lt;/h3&gt;
+
+&lt;p&gt;Even though we have only defined two routes, there are four routes that we want to define.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ApplicationRoute (/)&lt;/code&gt; - What happens when the root of the site (&lt;code&gt;/&lt;/code&gt;) is visited? The &lt;code&gt;ApplicationRoute&lt;/code&gt; is used to add a list of franchises to the controller.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;IndexRoute (/)&lt;/code&gt; - If the &lt;code&gt;ApplicationRoute&lt;/code&gt; is only adding a list of franchises, what is getting displayed? Simple, the root of the site will actually be directed to the &lt;code&gt;IndexRoute&lt;/code&gt;, which, in this case, will redirect the user to the franchise route with the default franchise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;FranchiseRoute (/franchise/{franchise_id})&lt;/code&gt; - Now that we&amp;rsquo;ve reached the franchise route, we will need to load the model. In this case, we want to take the &lt;code&gt;franchise_id&lt;/code&gt; that we defined in the &lt;code&gt;App.Router&lt;/code&gt; from the URL and load the specified franchise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GameRoute (/franchise/{franchise_id}/game/{game_id})&lt;/code&gt; - like the &lt;code&gt;FranchiseRoute&lt;/code&gt;, this route will pull the &lt;code&gt;game_id&lt;/code&gt; from the URL and load the requested game model.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Translating this to code, we get:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;App.ApplicationRoute = Ember.Route.extend({
+    setupController: function(applicationController) {
+        applicationController.set(&#39;franchises&#39;, App.GameStore.franchises);
+    }
+});
+
+App.IndexRoute = Ember.Route.extend({
+    redirect: function() {
+        this.transitionTo(&#39;franchise&#39;, App.GameStore.defaultFranchise());
+    }
+});
+
+App.FranchiseRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.GameStore.get(parseInt(params.franchise_id));
+    }
+});
+
+App.GameRoute = Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor(&#39;franchise&#39;).get(parseInt(params.game_id));
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: a url with both a franchise and a game will pass through the &lt;code&gt;ApplicationRoute&lt;/code&gt;, &lt;code&gt;FranchiseRoute&lt;/code&gt;, and &lt;code&gt;GameRoute&lt;/code&gt;. This is important to understand because each route&amp;rsquo;s template will also be rendered.&lt;/p&gt;
+
+&lt;h3 id=&#34;templates&#34;&gt;Templates&lt;/h3&gt;
+
+&lt;p&gt;Back to the HTML, notice above that there is a spot for us to store our templates.&lt;/p&gt;
+
+&lt;p&gt;This application has three templates that correspond to the four routes we created earlier:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Default template - this template has no ID attribute, so Ember assumes it is for the base application route (&lt;code&gt;/&lt;/code&gt;). This URL will trigger both the &lt;code&gt;ApplicationRoute&lt;/code&gt; and the &lt;code&gt;IndexRoute&lt;/code&gt;. The template will then have access to the &lt;code&gt;franchises&lt;/code&gt; property we added above.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;franchise&lt;/code&gt; - this corresponds to the &lt;code&gt;FranchiseRoute&lt;/code&gt; above and will be rendered as the default template&amp;rsquo;s &lt;code&gt;{{outlet}}&lt;/code&gt;. It will have access to the &lt;code&gt;franchise&lt;/code&gt; loaded as the template&amp;rsquo;s model implicitly.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;game&lt;/code&gt; - similarly, this template is loaded as the franchise&amp;rsquo;s &lt;code&gt;{{outlet}}&lt;/code&gt; and will have the implicit &lt;code&gt;game&lt;/code&gt; model.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&amp;quot;text/x-handlebars&amp;quot;&amp;gt;
+    &amp;lt;h1&amp;gt;Franchises&amp;lt;/h1&amp;gt;
+    &amp;lt;ul&amp;gt;
+        {{#each franchise in franchises}}
+            * {{#linkTo &#39;franchise&#39; franchise}}{{franchise.title}}{{/linkTo}}
+        {{/each}}
+    &amp;lt;/ul&amp;gt;
+
+    {{outlet}}
+&amp;lt;/script&amp;gt;
+
+&amp;lt;script type=&amp;quot;text/x-handlebars&amp;quot; id=&amp;quot;franchise&amp;quot;&amp;gt;
+    ## {{title}}
+    &amp;lt;ul&amp;gt;
+        {{#each game in games}}
+        * {{#linkTo &#39;game&#39; game}}{{game.title}}{{/linkTo}}
+        {{/each}}
+    &amp;lt;/ul&amp;gt;
+    {{outlet}}
+&amp;lt;/script&amp;gt;
+
+&amp;lt;script type=&amp;quot;text/x-handlebars&amp;quot; id=&amp;quot;game&amp;quot;&amp;gt;
+    &amp;lt;dl&amp;gt;
+        &amp;lt;dt&amp;gt;{{title}}&amp;lt;/dt&amp;gt;
+        &amp;lt;dd&amp;gt;{{releaseDate}}&amp;lt;/dd&amp;gt;
+    &amp;lt;/dl&amp;gt;
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Again, note that a URL with both a franchise and a game will need to render all three templates as each template will be loaded as an &lt;code&gt;{{outlet}}&lt;/code&gt; in each of the parent templates.&lt;/p&gt;
+
+&lt;p&gt;Also of note, the templates are each loaded in the order of URL precedence. So, when Ember sees &lt;code&gt;/franchise/2/game/1&lt;/code&gt; it will purposely load the default template with the franchise template in the &lt;code&gt;{{outlet}}&lt;/code&gt; and the game template will be loaded in the franchise&amp;rsquo;s &lt;code&gt;{{outlet}}&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This, of course, is on purpose and is part of a RESTful architecture and design. It also helps tie everything back together. The URL, routes, and templates are (as well as controllers, not covered here) are all linked tightly. This is where Ember&amp;rsquo;s magic takes place and is the first step towards understanding the framework.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Always Be Refactoring</title>
+      <link>/post/2013/07/08/always-be-refactoring/</link>
+      <pubDate>Mon, 08 Jul 2013 16:26:23 +0000</pubDate>
+      
+      <guid>/post/2013/07/08/always-be-refactoring/</guid>
+      <description>&lt;p&gt;If there is one thing you can do to improve your coding skills, it would have to be refactoring existing code.&lt;/p&gt;
+
+&lt;p&gt;Start with some old code written by someone who didn&amp;rsquo;t know better (possibly you) - code that doesn&amp;rsquo;t follow existing conventions - and have at it. Preferably, full unit tests exist for you to verify that the code still works after each change. If you don&amp;rsquo;t have the tests then creating them is your first step.&lt;/p&gt;
+
+&lt;p&gt;Once you have tests in place, you are free to change anything you want without breaking the interface. The benefits of this are many: if you are unfamiliar with the code base, this will get you up to speed quickly; you are able to try new coding styles without harming existing, outside code; and you now have an island of up to date code that can be built upon.&lt;/p&gt;
+
+&lt;p&gt;It isn&amp;rsquo;t &lt;a title=&#34;Coding Horror: Don&#39;t Reinvent the Wheel, Unless You Plan on Learning More About Wheels&#34; href=&#34;http://www.codinghorror.com/blog/2009/02/dont-reinvent-the-wheel-unless-you-plan-on-learning-more-about-wheels.html&#34;&gt;reinventing the wheel&lt;/a&gt;, but it gets you just as far. You now have a well-defined set of testable requirements with an example implementation that may or may not help you. All your work can happen within the confines of your module or class without affecting others.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Migration Problem</title>
+      <link>/post/2013/06/26/the-migration-problem/</link>
+      <pubDate>Wed, 26 Jun 2013 11:45:01 +0000</pubDate>
+      
+      <guid>/post/2013/06/26/the-migration-problem/</guid>
+      <description>&lt;p&gt;Being able to write code for programmers has an interesting problem. What do you do when you want to change the API or how a component works?&lt;/p&gt;
+
+&lt;p&gt;Typically, in an object oriented approach, you ensure that you are programming to valid interfaces only and that you have abstracted the problem away enough that any change you make is undetectable.&lt;/p&gt;
+
+&lt;p&gt;You can&amp;rsquo;t rely on that happening, though. Sometimes the API changes so dramatically that programming to the old interfaces is like stuffing a round peg into a square hole.&lt;/p&gt;
+
+&lt;p&gt;Now you have a migration problem. Version 2 of your API is available and is incompatible with Version 1. What do you do ?&lt;/p&gt;
+
+&lt;p&gt;You have a couple options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You can take Salesforce&amp;rsquo;s approach and keep all your APIs alive, but that means required maintenance on old code and upkeep for any servers you use.&lt;/li&gt;
+&lt;li&gt;You can deprecate and kill off the old API, but you&amp;rsquo;ll find your current users are rather attached to version 1, if only because migrating to version 2 costs time and resources that could be used to make money.&lt;/li&gt;
+&lt;li&gt;You can create some migration helpers to ease developer&amp;rsquo;s life while forcing a migration.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It&amp;rsquo;s the last option that truly speaks to someone writing code for programmers. The slow migration approach will use some rewritten version 1 code that amounts to glue binding the old API to the new API. Developers can then slowly migrate to version 2 while using version 1 in small steps.&lt;/p&gt;
+
+&lt;p&gt;This glue code is temporary and goes against most programming principles. It will also be rather ugly. However, as the owner of the API, if you can take on the ugly task required by the migration, all your API users can now avoid the ugly code they would have had to write to begin with.&lt;/p&gt;
+
+&lt;p&gt;Hopefully, migrating to the glue code is easier for the developers than completely migrating to version 2. Eventually, you need to kill the old API. This can be done once you know everyone is using the glue code.&lt;/p&gt;
+
+&lt;p&gt;Kill off version 1 and then slowly kill off the glue code, which can hopefully be done without your developers needing to do anything beyond flipping a switch.&lt;/p&gt;
+
+&lt;p&gt;There is no way out of the ugly code required by a slow migration. However, as an API owner, you can make everyone else&amp;rsquo;s lives easier by making your life slightly more difficult.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Creating a Reusable URL with Spring RestTemplate</title>
+      <link>/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/</link>
+      <pubDate>Thu, 20 Jun 2013 04:15:27 +0000</pubDate>
+      
+      <guid>/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/</guid>
+      <description>&lt;p&gt;It&amp;rsquo;s a fact. Spring has a way of simplifying development in a developer-centric way. Spring&amp;rsquo;s &lt;a href=&#34;http://blog.springsource.org/2009/03/27/rest-in-spring-3-resttemplate/&#34; title=&#34;RestTemplate&#34;&gt;RestTemplate&lt;/a&gt; gets us an easy to use REST interface.&lt;/p&gt;
+
+&lt;p&gt;We can take it one step further by making the template creation a bit more flexible. What we need is a way to build a template from a known base URL and known parameters with configurable path and parameters.&lt;/p&gt;
+
+&lt;p&gt;For instance, a search template could look like: &lt;code&gt;http://api.example.com/search?query={query}&amp;amp;sortOrder={sortOrder}&amp;amp;maxResults={maxResults}&amp;amp;api_key=myKey&amp;amp;format=json&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Here, we have a few different requirements needed to build a template:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The constant &lt;code&gt;baseUrl&lt;/code&gt; - &lt;code&gt;http://api.example.com&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The configurable &lt;code&gt;path&lt;/code&gt; - &lt;code&gt;/search&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The configurable parameters - &lt;code&gt;query={query}&amp;amp;sortOrder={sortOrder}&amp;amp;maxResults={maxResults}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The constant parameters - &lt;code&gt;api_key=myKey&amp;amp;format=json&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is a fairly straight forward implementation which I have found to be very useful.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class RestTemplateUtil {
+    private String baseUrl
+    private String key
+    private String format
+
+    String buildTemplateUrl(String path, Set queryParameters) {
+        def builder = new StringBuilder()
+        builder.append(this.baseUrl).append(path).append(&#39;?&#39;)
+        queryParameters.each { queryKey -&amp;gt;
+            builder.append(queryKey).append(&#39;={&#39;).append(queryKey).append(&#39;}&amp;amp;&#39;)
+        }
+        builder.append(&#39;api_key=&#39;).append(this.key).append(&#39;&amp;amp;format=&#39;).append(this.format)
+        return builder.toString()
+    }
+
+    void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl	
+    }
+
+    void setKey(String key) {
+        this.key = key
+    }
+
+    void setFormat(String format) {
+        this.format= format
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once configured, the developer builds the template from the API path and a Set of parameter names. This Set is easily constructed from a Map of parameters and their values used directly by the RestTemplate.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def templateUtil = new RestTemplateUtil()
+templateUtil.baseUrl = &#39;http://api.example.com&#39;
+templateUtil.key = &#39;myKey&#39;
+templateUtil.format = &#39;json&#39;
+
+def params = [&#39;query&#39;:&#39;search terms&#39;, &#39;sortOrder&#39;:&#39;asc&#39;, &#39;maxResults&#39;:20]
+def template = templateUtil.buildTemplateUrl(&#39;/search&#39;, params.keySet())
+
+def rest = new RestTemplate()
+def result = rest.getForObject(template, String, params)
+println result
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This could be expanded easily by changing the utility class follow the builder pattern or just incorporating the &lt;code&gt;getForObject&lt;/code&gt; call directly. However, the above is simple, straight forward and helps reduce code by creating a reusable asset that can easily be leveraged by any code needing RestTemplates&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>KH3 on PS4</title>
+      <link>/post/2013/06/11/kh3-on-ps4/</link>
+      <pubDate>Tue, 11 Jun 2013 12:03:36 +0000</pubDate>
+      
+      <guid>/post/2013/06/11/kh3-on-ps4/</guid>
+      <description>&lt;p&gt;It was announced yesterday, &lt;a href=&#34;http://m.joystiq.com/2013/06/10/kingdom-hearts-3-coming-to-the-playstation-4/&#34;&gt;Kingdom Hearts 3 will be released on the PS4&lt;/a&gt;, and I&amp;rsquo;m a bit disappointed.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve been a fan of the Kingdom Hearts series for a long time now. I even get into the convoluted plots that can&amp;rsquo;t withstand the slightest internal contradictions (why is it that keychains are the only way to change the keyblade in KH1, but the rest of the series makes it clear that there are hundreds of different keyblades?).&lt;/p&gt;
+
+&lt;p&gt;My first introduction to Kingdom Hearts was when my brother gave me the first game as a Christmas present. Neither of us knew much about it other than that it merged Disney characters with Final Fantasy characters. Since we didn&amp;rsquo;t know much about Final Fantasy, this didn&amp;rsquo;t explain much.&lt;/p&gt;
+
+&lt;p&gt;There was also the fact that I never saw any of the &amp;ldquo;classic&amp;rdquo; Disney movies. I still have never seen Cinderella, Peter Pan, Alice in Wonderland, Pinocchio, or many other films used by the Kingdom Hearts franchise.&lt;/p&gt;
+
+&lt;p&gt;I played through the first Kingdom Hearts without paying much attention. I liked the action / RPG gameplay which I had never played before, but I wouldn&amp;rsquo;t have been able to summarize the plot for you.&lt;/p&gt;
+
+&lt;p&gt;I had recently purchased a Game Boy Advanced when Chain of Memories came out. Picking it up on a whim, I played through the game on a trip to Duluth. Because of the simple gameplay, the plot really stood out more, and I began to see some inklings of the story.&lt;/p&gt;
+
+&lt;p&gt;I played through the first game once more, attempting to understand what was happening and I was drawn in. I&amp;rsquo;ve always enjoyed the light vs. dark metaphor and Kingdom Hearts did a good job of employing it throughout the plot. This play through, I made it to level 99 with the intent of finally beating Sepheroth (never did beat him).&lt;/p&gt;
+
+&lt;p&gt;Afterwards, I was very excited about the next entry in the series. Kingdom Hearts 2 finally came out and I immediately loaded it up after purchasing it, not knowing about the 6 hours of introduction before the title screen appears. After this, I was finally interested in Final Fantasy and have been playing the entire series since (except FFVIII, that game sucks).&lt;/p&gt;
+
+&lt;p&gt;Already owning a PSP, I played Birth By Sleep once it was out. Dream Drop Distance was my excuse to purchase a 3DS which also let me play &lt;sup&gt;358&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt; Days once I found a used copy (but that disappointing game has kept me from searching for RE: Coded).&lt;/p&gt;
+
+&lt;p&gt;With the exception of the handheld spinoffs, the main series games were both on the PS2. After playing through KH2, which came out late in the console&amp;rsquo;s life, it seemed inevitable that KH3 would be on the PS3. However, instead of announcing the next numbered entry in the series, they kept creating new handheld games.&lt;/p&gt;
+
+&lt;p&gt;Rumor had it that the director of KH3 wouldn&amp;rsquo;t work on the game until Final Fantasy Versus XIII was complete. Versus XIII was announced in 2006 and is now planned to be called Final Fantasy XV instead. 7 years later and it still hasn&amp;rsquo;t been released.&lt;/p&gt;
+
+&lt;p&gt;Now, KH3 has been announced for PS4, skipping an entire generation of consoles. Kingdom Hearts was enough motivation to purchase a $170 handheld with a decent library behind it, but there&amp;rsquo;s no way it can get me to purchase a $400 console with no other games. I guess I&amp;rsquo;ll just put it on my &amp;ldquo;to play&amp;rdquo; list and pick it up used once the console drops in price.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Lets set up Spring MVC</title>
+      <link>/post/2013/06/02/lets-set-up-spring-mvc/</link>
+      <pubDate>Mon, 03 Jun 2013 03:15:24 +0000</pubDate>
+      
+      <guid>/post/2013/06/02/lets-set-up-spring-mvc/</guid>
+      <description>
+
+&lt;p&gt;Welcome to the &lt;a href=&#34;http://www.springsource.org/features/modern-web&#34;&gt;Modern Web&lt;/a&gt;, here&amp;rsquo;s your library. Spring MVC comes standard with the monolith that is the Spring Framework. It certainly makes creating a web app easy&amp;hellip; once it&amp;rsquo;s set up. Getting started, though, is the difficult part.&lt;/p&gt;
+
+&lt;p&gt;This isn&amp;rsquo;t meant to be a very educational article, only an instructive article. If you are unfamiliar with the concepts listed, google is your friend. There are a lot of moving pieces to this, so lets dive in.&lt;/p&gt;
+
+&lt;h2 id=&#34;requirements&#34;&gt;Requirements&lt;/h2&gt;
+
+&lt;p&gt;What do we want to accomplish? We want to set up Spring MVC to handle all *.html files, not interact with resources such as javascript and CSS files, forward rendering to JSP files under WEB-INF/jsp and use Logback for logging.&lt;/p&gt;
+
+&lt;h2 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h2&gt;
+
+&lt;p&gt;There&amp;rsquo;s one downside for Spring, a lot of jars are involved. To accomplish the above we need the following jars:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;aopalliance-1.0.jar
+commons-logging-1.1.3.jar
+groovy-all-2.1.1.jar
+jcl-over-slf4j-1.7.5.jar
+jstl-1.2.jar
+logback-classic-1.0.13.jar
+logback-core-1.0.13.jar
+slf4j-api-1.7.5.jar
+spring-aop-3.2.3.RELEASE.jar
+spring-beans-3.2.3.RELEASE.jar
+spring-context-3.2.3.RELEASE.jar
+spring-core-3.2.3.RELEASE.jar
+spring-expression-3.2.3.RELEASE.jar
+spring-web-3.2.3.RELEASE.jar
+spring-webmvc-3.2.3.RELEASE.jar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Your versions may vary&lt;/p&gt;
+
+&lt;h2 id=&#34;file-structure&#34;&gt;File Structure&lt;/h2&gt;
+
+&lt;p&gt;We will order our files in the following directory structure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\---src
+    +---main
+    |   +---groovy
+    |   |   \---com
+    |   |       \---mycom
+    |   |           \---&amp;lt;controller&amp;gt;.groovy
+    |   \---resources
+    |       \---logback.xml
+    \---webapp
+        +---css
+        +---images
+        +---js
+        \---WEB-INF
+            +---web.xml
+            +---spring-servlet.xml
+            \---jsp
+                \---&amp;lt;view&amp;gt;.jsp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;controller&amp;gt;.groovy&lt;/code&gt; will hold the controller code that will load the model and forward to the &lt;code&gt;&amp;lt;view&amp;gt;.jsp&lt;/code&gt; under &lt;code&gt;WEB-INF/jsp&lt;/code&gt;. &lt;code&gt;logback.xml&lt;/code&gt; will configure our logging to print out all the debug statements to make sure the app is working correctly. &lt;code&gt;css&lt;/code&gt;, &lt;code&gt;images&lt;/code&gt; and &lt;code&gt;js&lt;/code&gt; hold the appropriate resource files. &lt;code&gt;spring-servlet.xml&lt;/code&gt; configures Spring MVC to find our controllers and views. And &lt;code&gt;web.xml&lt;/code&gt; is the standard deployment descriptor.&lt;/p&gt;
+
+&lt;h2 id=&#34;web-xml&#34;&gt;web.xml&lt;/h2&gt;
+
+&lt;p&gt;The deployment descriptor sets up 4 items: the welcome files list, set to index.html, &lt;a title=&#34;defaultHtmlEscape&#34; href=&#34;http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#spring.tld.htmlEscape&#34;&gt;default HTML escaping&lt;/a&gt; to prevent XSS attacks, the &lt;a title=&#34;Spring MVC DispatcherServlet&#34; href=&#34;http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-servlet&#34;&gt;DispatcherServlet&lt;/a&gt;, and which files Spring MVC will handle.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;web-app xmlns=&amp;quot;http://java.sun.com/xml/ns/javaee&amp;quot; version=&amp;quot;2.5&amp;quot;&amp;gt;
+  &amp;lt;welcome-file-list&amp;gt;
+    &amp;lt;welcome-file&amp;gt;index.html&amp;lt;/welcome-file&amp;gt;
+  &amp;lt;/welcome-file-list&amp;gt;
+
+  &amp;lt;!-- Escape HTML output by default --&amp;gt;
+  &amp;lt;context-param&amp;gt;
+    &amp;lt;param-name&amp;gt;defaultHtmlEscape&amp;lt;/param-name&amp;gt;
+    &amp;lt;param-value&amp;gt;true&amp;lt;/param-value&amp;gt;
+  &amp;lt;/context-param&amp;gt;
+
+  &amp;lt;!-- This servlet named &amp;quot;spring&amp;quot; will make Spring MVC look for
+       spring-servlet.xml under WEB-INF --&amp;gt;
+  &amp;lt;servlet&amp;gt;
+    &amp;lt;servlet-name&amp;gt;spring&amp;lt;/servlet-name&amp;gt;
+    &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.DispatcherServlet&amp;lt;/servlet-class&amp;gt;
+    &amp;lt;load-on-startup&amp;gt;1&amp;lt;/load-on-startup&amp;gt;
+  &amp;lt;/servlet&amp;gt;
+
+  &amp;lt;!-- Map Spring MVC to all .html files --&amp;gt;
+  &amp;lt;servlet-mapping&amp;gt;
+    &amp;lt;servlet-name&amp;gt;spring&amp;lt;/servlet-name&amp;gt;
+    &amp;lt;url-pattern&amp;gt;*.html&amp;lt;/url-pattern&amp;gt;
+  &amp;lt;/servlet-mapping&amp;gt;
+&amp;lt;/web-app&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;spring-servlet-xml&#34;&gt;spring-servlet.xml&lt;/h2&gt;
+
+&lt;p&gt;The *-servlet.xml file is automatically loaded by the DispatcherServlet based on the servlet name. In this case, Spring will look for spring-servlet.xml. We need to configure this file to do the following: scan our source code for controllers, note that Spring MVC will be driven by annotations (not necessarily needed, but will prevent issues in the future) and tell Spring MVC to resolves views in our WEB-INF/jsp folder.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+  xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+  xmlns:p=&amp;quot;http://www.springframework.org/schema/p&amp;quot;
+  xmlns:context=&amp;quot;http://www.springframework.org/schema/context&amp;quot;
+  xmlns:mvc=&amp;quot;http://www.springframework.org/schema/mvc&amp;quot;
+  xsi:schemaLocation=&amp;quot;
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd&amp;quot;&amp;gt;
+
+  &amp;lt;!-- All annotated Spring classes under this package will be picked up --&amp;gt;
+  &amp;lt;context:component-scan base-package=&amp;quot;com.mycom&amp;quot;/&amp;gt;
+  &amp;lt;!-- Drive Spring MVC with annotations --&amp;gt;
+  &amp;lt;mvc:annotation-driven /&amp;gt;
+
+  &amp;lt;!-- Any view returned by the app will be resolved to WEB-INF/lib/[view].jsp --&amp;gt;
+  &amp;lt;bean class=&amp;quot;org.springframework.web.servlet.view.InternalResourceViewResolver&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;prefix&amp;quot; value=&amp;quot;/WEB-INF/jsp/&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;suffix&amp;quot; value=&amp;quot;.jsp&amp;quot;/&amp;gt;
+  &amp;lt;/bean&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+
+&lt;p&gt;Since Spring MVC is mapped to *.html, only html files will be picked up. So any images, CSS and javascript can be placed in their respective folders and be picked up with out being processed.&lt;/p&gt;
+
+&lt;h2 id=&#34;controllers&#34;&gt;Controllers&lt;/h2&gt;
+
+&lt;p&gt;Any groovy files with the @Controller annotation will be picked up Spring. The controller needs to hold methods that map to a specific URL (an html file, in this case). It will then need return a Model and or View. The string representing the view will be mapped to the corresponding JSP file under WEB-INF/jsp.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.mycom.controller
+
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.servlet.ModelAndView
+
+// Ensure Spring picks this class up as a controller
+@Controller
+class DefaultController {
+  // map index.html to WEB-INF/jsp/index.jsp
+  @RequestMapping(&#39;/index.html&#39;)
+  def index() {
+    return &#39;index&#39;
+  }
+
+  // map search.html to WEB-INF/jsp/search.jsp with a SearchResults as the model
+  @RequestMapping(&#39;/search.html&#39;)
+  def search() {
+    return new ModelAndView(&#39;search&#39;, &#39;results&#39;, new SearchResults(...))
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;views&#34;&gt;Views&lt;/h2&gt;
+
+&lt;p&gt;Our views a simple JSP pages that get resolved to WEB-INF/jsp/&lt;view-name&gt;.jsp. Since this is just an article about setup, you will need to see the &lt;a title=&#34;Spring MVC views&#34; href=&#34;http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-viewresolver&#34;&gt;documentation &lt;/a&gt;for more information.&lt;/p&gt;
+
+&lt;h2 id=&#34;logback-xml&#34;&gt;logback.xml&lt;/h2&gt;
+
+&lt;p&gt;Lastly we configure our logging to print out all our debug statements, letting us know if everything is working correctly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&amp;lt;configuration debug=&amp;quot;true&amp;quot;&amp;gt;
+  &amp;lt;appender name=&amp;quot;STDOUT&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
+    &amp;lt;encoder&amp;gt;
+      &amp;lt;pattern&amp;gt;
+        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+      &amp;lt;/pattern&amp;gt;
+    &amp;lt;/encoder&amp;gt;
+  &amp;lt;/appender&amp;gt;
+
+  &amp;lt;logger name=&amp;quot;org.springframework&amp;quot; level=&amp;quot;DEBUG&amp;quot;/&amp;gt;
+  &amp;lt;root level=&amp;quot;DEBUG&amp;quot;&amp;gt;
+    &amp;lt;appender-ref ref=&amp;quot;STDOUT&amp;quot; /&amp;gt;
+  &amp;lt;/root&amp;gt;
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Security and Usability</title>
+      <link>/post/2013/05/31/security-and-usability/</link>
+      <pubDate>Fri, 31 May 2013 11:48:40 +0000</pubDate>
+      
+      <guid>/post/2013/05/31/security-and-usability/</guid>
+      <description>&lt;p&gt;With respect to my last post, cars are actually quite easy to learn and use despite their extreme complexity. A driver can easily move from one vehicle to the next and comfortable operate it with only a quick look at the controls. This made possible by the fact that each car is trying to solve the same problem within the same limitations of size, road construction and regulations.&lt;/p&gt;
+
+&lt;p&gt;Security frameworks for programmers have a different set of problems that hinder usability greatly.&lt;/p&gt;
+
+&lt;p&gt;They need to solve a great number of security issues: XSS, CSRF, encryption, encoding, file indirection, logging, etc. All these issues are so unrelated that single framework which covers them all would be horrible to learn.&lt;/p&gt;
+
+&lt;p&gt;A framework that specializes in a single solution space such as &lt;a href=&#34;https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project&#34;&gt;CSRFGuard&lt;/a&gt; from OWASP can still have usability issues as they are trying to solve a difficult problem after an application has been built.&lt;/p&gt;
+
+&lt;p&gt;What developers need is security to be handled below the application level - within their MVC framework or even the language itself. This is needed as security should not be the job of the application programmer. Apps should not need to be designed around security issues. They should be designed around business requirements and security just comes along for the ride.&lt;/p&gt;
+
+&lt;p&gt;As framework designers, we need to remember that security is a necessary evil that adds no e real product value. It&amp;rsquo;s insurance that you pay up front to prevent possible issues in the future. In fact, security done right will always look like a waste if time - you&amp;rsquo;ve prevented attacks but no one will realize it as they will never see the actual threats.&lt;/p&gt;
+
+&lt;p&gt;I would really like to see OWASP and other security minded organizations contribute more security code to popular MVC frameworks like Spring MVC or JSF instead of creating new third party frameworks that can only work once the application exists.&lt;/p&gt;
+
+&lt;p&gt;Both security and car design have large, complex problems to solve and both need increased usability, but security is an always changing field with so many different problems to solve that a common design will never emerge. If we want programmers to secure their applications, then we need to make security &amp;ldquo;just work&amp;rdquo;. Given to choice between preventing possible attacks at vague times in the future or shipping a new product that will earn the company money, we all know which option will be chosen.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Let&#39;s Have a Little Talk About Usability</title>
+      <link>/post/2013/05/29/lets-have-a-little-talk-about-usability/</link>
+      <pubDate>Thu, 30 May 2013 03:37:36 +0000</pubDate>
+      
+      <guid>/post/2013/05/29/lets-have-a-little-talk-about-usability/</guid>
+      <description>&lt;p&gt;One of the most interesting things about cars, from a usability point of view, is how easy it is to drive one. Once you&amp;rsquo;ve learned how to drive one, nearly any other car or truck is easy to learn But take a moment and think about what is actually involved in controlling a 4 ton piece of metal at 60 miles per hour next to other large, fast moving vehicles and you may start feeling overwhelmed.&lt;/p&gt;
+
+&lt;p&gt;It really is a tribute to auto manufacturers and their designers that so many different designs could be so easily accessible to drivers with little introduction to the different designs. Considering that the majority of operations within a car require the driver to execute the action without ever looking, automobiles should really be looked at as a pinnacle of design.&lt;/p&gt;
+
+&lt;p&gt;However, I&amp;rsquo;ve recently been seeing an ad on Hulu (which I can&amp;rsquo;t find anywhere) comparing a car to a tablet. The announcer asks the viewer to compare the number of buttons on their car stereo and on their tablet and implores them to enter the future by getting rid of all that old-school, tactile feedback and switch to something requires eye sight for every operation.&lt;/p&gt;
+
+&lt;p&gt;Every time I see this ad, I shake my head and cry a little - on the inside. Controlling a car by touchscreen is one of the stupidest and dangerous ideas I can think of. Now, instead of keeping your eyes on the road and changing the radio station by touch alone, you now need to look at your dashboard to find exactly where your finger, while hoping that the touchscreen was responsive enough to detect your selection.&lt;/p&gt;
+
+&lt;p&gt;Look at typing on your tablet as an example. If you&amp;rsquo;re used to touch typing, tablet typing is painfully slow and only auto-correct will save you. And unless the build in autonomous driving into new cars, there won&amp;rsquo;t be an equivalent to vehicular auto-correct any time soon.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s one thing to take a known, good design and throw it out the window - this could even be considered brave and daring in seeing how new features work with their users - but removing usability and pretending it&amp;rsquo;s the main selling point in your product really gets under my skin. Learn from existing &lt;a href=&#34;http://www.nngroup.com/articles/ipad-usability-year-one/&#34;&gt;usability problems with tablets&lt;/a&gt; first and try improve your current design instead of going with what would be considered &amp;ldquo;cool&amp;rdquo;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>There is No Such Thing as Two</title>
+      <link>/post/2013/05/28/there-is-no-such-thing-as-two-2/</link>
+      <pubDate>Tue, 28 May 2013 12:14:50 +0000</pubDate>
+      
+      <guid>/post/2013/05/28/there-is-no-such-thing-as-two-2/</guid>
+      <description>&lt;p&gt;Years ago, I don&amp;rsquo;t know where, I don&amp;rsquo;t know when, I heard the statement &amp;ldquo;There is no such thing as two.&amp;rdquo; It was about programming in general, and the definition went something like this:
+&lt;ul&gt;
+    &lt;li&gt;You can do something zero times.&lt;/li&gt;
+    &lt;li&gt;You can do something one time.&lt;/li&gt;
+    &lt;li&gt;You can do something many times.&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+
+&lt;p&gt;And that&amp;rsquo;s it. You can never do something twice in programming because there is a good chance that once you do something twice, you&amp;rsquo;ll do it a third or fourth time.&lt;/p&gt;
+
+&lt;p&gt;This sentiment comes up in many places like the famous &lt;a href=&#34;http://en.m.wikipedia.org/wiki/Don&#39;t_repeat_yourself&#34;&gt;DRY Principal&lt;/a&gt; which uses a bit more formal definition of ensuring all pieces of information have a single source of truth.&lt;/p&gt;
+
+&lt;p&gt;But DRY is usually meant for data. On the processing side, &lt;a href=&#34;http://c2.com/xp/OnceAndOnlyOnce.html&#34;&gt;Once and Only Once&lt;/a&gt; is more appropriate. If you ever see that you&amp;rsquo;ve repeated yourself, abstract out the similar functionality and call the common code instead.&lt;/p&gt;
+
+&lt;p&gt;Even though the same idea is hidden within each of the above statements, I still prefer thinking of the number two as an impossible object.&lt;/p&gt;
+
+&lt;p&gt;For one thing, the definition is clearly stated in common words and doesn&amp;rsquo;t try to be academic.&lt;/p&gt;
+
+&lt;p&gt;Secondly, the three bullets have hidden meanings found in other coding best practices.
+&lt;ul&gt;
+    &lt;li&gt;You can do something zero times - This is obvious, but drawing it out and stating it explicitly hints at optimization. Any time you refactor code, you should trying to get rid of the parts that are no longer needed. &lt;/li&gt;
+    &lt;li&gt;You can do something once - There is no need to prematurely optimize and abstract your code. Wait until you know that a new method or class is needed before increasing the complexity of your code base. &lt;/li&gt;
+    &lt;li&gt;You can do something many times - Here is the heart of &amp;ldquo;no such thing as two&amp;rdquo;. Once you&amp;rsquo;ve done something more than once, you should be able to do it as many times as you want. &lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+
+&lt;p&gt;Lastly, the geekier side of me likes the play on binary. You can only use the digits 0 and 1, but you can represent any number you wish. You&amp;rsquo;ll never see a 2.&lt;/p&gt;
+
+&lt;p&gt;And, as we all know, &lt;a href=&#34;http://m.imdb.com/title/tt0584427/quotes?qt=qt0487524&#34;&gt;seeing a 2 can be scary&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Spammers Be Spamming</title>
+      <link>/post/2013/05/23/spammers-be-spamming/</link>
+      <pubDate>Thu, 23 May 2013 11:37:22 +0000</pubDate>
+      
+      <guid>/post/2013/05/23/spammers-be-spamming/</guid>
+      <description>&lt;p&gt;It&amp;rsquo;s bad enough that you are spamming me, but did you really have to call my posts &amp;ldquo;rife with spelling errors&amp;rdquo;? Even if it is true, that&amp;rsquo;s just not nice Mr. Porn spammer.&lt;/p&gt;
 </description>
     </item>
     

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creating Test Services with Spring Boot</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="Creating Test Services with Spring Boot" />
+<meta property="og:description" content="One of the coolest new technologies from the Spring Foundation has to be the new Spring Boot project. Spring Boot takes all the common template / bootstrap / setup code that everyone is doing already and just does it for you.
+It also covers all the main Spring technologies: Spring MVC, Spring Batch, Spring Security, etc. Need a database? Just add the schema. Need a service? Just add a request mapping." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2013/09/20/creating-test-services-with-spring-boot/" />
+
+
+<meta property="og:updated_time" content="2013-09-21T03:39:35&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">Creating Test Services with Spring Boot</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2013-09-21 03:39:35 &#43;0000 &#43;0000">September 21, 2013</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			
+
+<p>One of the coolest new technologies from the Spring Foundation has to be the new <a href="http://spring.io/blog/2013/08/06/spring-boot-simplifying-spring-for-everyone" title="Spring Boot   Simplifying Spring for Everyone">Spring Boot</a> project. Spring Boot takes all the common template / bootstrap / setup code that everyone is doing already and just does it for you.</p>
+
+<p>It also covers all the main Spring technologies: Spring MVC, Spring Batch, Spring Security, etc. Need a database? Just add the schema. Need a service? Just add a request mapping. Spring Boot will interpret your setup and start a server if needed.</p>
+
+<p><a href="https://github.com/spring-projects/spring-boot" title="Spring Boot on Github">GitHub</a> already has the basics for creating simple examples. For example, from the Spring Blog (once you have the Spring Boot command line installed) the following groovy code will run a web site:</p>
+
+<pre><code class="language-java">@Controller
+class ThisWillActuallyRun {
+    @RequestMapping(&quot;/&quot;)
+    @ResponseBody
+    String home() {
+        return &quot;Hello World!&quot;
+    }
+}
+</code></pre>
+
+<p>Amazingly simple to use.</p>
+
+<p>It gets a little more complicated when you need an advanced site. Specifically, what do we need in order to create a database driven REST data service? All of the code for this example is in <a href="https://github.com/jaylindquist/spring-boot-service-template" title="Spring Boot Service Template" target="_blank">my GitHhub repo</a>.</p>
+
+<h2 id="build-file">Build file</h2>
+
+<p>Something that I always appreciate, is a gradle plugin, and Spring Boot comes through. The following build.gradle loads in Spring Boot, a few more dependencies to support Groovy, an in memory database and JSON parsing for the service, then adds a <code>run</code> command to make life easier.</p>
+
+<pre><code>buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url &quot;http://repo.springsource.org/milestone&quot;
+        }
+    }
+    dependencies {
+        classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M3&quot;)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url &quot;http://repo.springsource.org/milestone&quot;
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.6
+version = '1.0'
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.1.7'
+    compile 'org.springframework.boot:spring-boot-starter-web:0.5.0.M3'
+    compile 'org.springframework:spring-jdbc:4.0.0.M3'
+    runtime 'org.codehaus.jackson:jackson-mapper-asl:1.9.12'
+    runtime 'org.hsqldb:hsqldb:latest.release'
+}
+
+task run(type: JavaExec) {
+    classpath configurations.runtime, sourceSets.main.output
+    main = 'com.mycom.App'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.7'
+}
+</code></pre>
+
+<h2 id="project-structure">Project Structure</h2>
+
+<p>You have two options to run Spring Boot projects. The first is simply use the Spring Boot command line against a class you want to execute, as with the example from the Spring blog. The second options is for more complex projects that are set up to use an IDE and custom project structure. We&rsquo;ll use the latter for this example.</p>
+
+<p>I&rsquo;ve used the standard Groovy Jar project structure for Gradle, but any structure will do. Note that, even though we are building a web app, the project structure is for a Jar. We have no need to create the web.xml.</p>
+
+<h2 id="main">Main</h2>
+
+<p>From the build file above, the run task simply executes the main class <code>com.mycom.App</code>. This class will tell Spring Boot how to run our app and set up all our autowiring needs.</p>
+
+<pre><code>package com.mycom 
+
+import org.springframework.boot.*
+import org.springframework.boot.autoconfigure.*
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.*
+import org.springframework.web.bind.annotation.*
+
+@Configuration
+@ComponentScan(basePackages = &quot;com.mycom&quot; )
+@EnableAutoConfiguration
+class App {
+    public static void main(String[] args) throws Exception {
+        def app = new SpringApplication(App.class)
+        app.showBanner = false
+        app.run(args)
+    }
+}
+</code></pre>
+
+<p>I&rsquo;ve shown that <a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot/src/main/java/org/springframework/boot/SpringApplication.java" title="Spring Application Source" target="_blank"><code>SpringApplication</code></a> actually includes a few custom properties you may be interested in. However, in most cases, the static <code>run(Object, args)</code> should be enough. Otherwise, note that this class configures the rest of the classes in <code>com.mycom</code> for Spring wiring.</p>
+
+<h2 id="app-settings">App Settings</h2>
+
+<p>Let&rsquo;s take a detour into the resources directory. Spring Boot has additional configuration steps in the <code>application.properties</code> file. Simply create this file, put it on your classpath, and fill in what is needed.</p>
+
+<pre><code>spring.application.name=spring-boot-service-template
+server.port:9080
+logging.file:logs/system.log
+
+spring.database.schema=classpath*:schema-hsqldb.sql
+</code></pre>
+
+<p>Application name, server port and logging file are all completely optional and only serve as examples. The only important information in this file is the database schema. which is also in the resources directory. Spring Boot will load the database file and create the <code>DataSource</code> for us.</p>
+
+<h2 id="schema">Schema</h2>
+
+<p>Here&rsquo;s our actual data. We&rsquo;ll follow the model from the <a href="http://bitwiseor.com/2013/08/03/lets-set-up-ember-js/" title="Lets set up Ember.js" target="_blank">Ember example</a>:</p>
+
+<ul>
+<li>We have Franchises which represent a game franchise, like Legend of Zelda</li>
+<li>Within each franchise, we have a Game</li>
+<li>Each game has a release date</li>
+</ul>
+
+<p>Our schema creates the tables and sample data in one file:</p>
+
+<pre><code>CREATE TABLE franchises (
+    id BIGINT NOT NULL PRIMARY KEY,
+    title VARCHAR(255)
+);
+
+CREATE TABLE games (
+    id BIGINT NOT NULL,
+    franchise_id BIGINT NOT NULL, 
+    name VARCHAR(255),
+    release DATE,
+    FOREIGN KEY (franchise_id) REFERENCES franchises(id)
+);
+
+INSERT INTO franchises 
+    (id, title) VALUES
+    (0, 'Final Fantasy'),
+    (1, 'Fire Emblem'),
+    (2, 'The Legend of Zelda');
+
+INSERT INTO games
+    (franchise_id, id, name, release) VALUES
+    (0, 0, 'Final Fantasy Type 0', '2011-10-27'),
+    (0, 1, 'Final Fantasy IV: The After Years', '2008-02-18'),
+    (0, 2, 'Final Fantasy VII', '1997-09-07'),
+    (1, 0, 'Fire Emblem Awakening', '2013-02-04'),
+    (1, 1, 'Fire Emblem Shadow Dragon', '2009-02-16'),
+    (2, 0, 'The Legend of Zelda: Skyward Sword', '2011-11-20'),
+    (2, 1, 'The Legend of Zelda: Ocarina of Time', '2007-02-26'),
+    (2, 2, 'The Legend of Zelda: A Link to the Past', '1991-11-21');
+</code></pre>
+
+<h2 id="logging">Logging</h2>
+
+<p>Just to note that logging is already configured for Logback and SLF4J. A logback.xml on the classpath will configure logging as you would expect.</p>
+
+<h2 id="service-code">Service Code</h2>
+
+<p>Now to the actual service code that all the above supports. Spring Boot does all the work on configuring Spring MVC for us, so all that is left for us to do is the actual business logic for the REST services.</p>
+
+<p>The services themselves will simply return the data from the database based on the resource requested. So, <code>/franchise/1</code> will return Fire Emblem franchise while <code>/franchise/1/game/0</code> will return Fire Emblem Awakening with its release date.</p>
+
+<p>For Frachises:</p>
+
+<pre><code>package com.mycom
+
+import javax.sql.DataSource
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
+
+@Controller
+class Franchise {
+    private JdbcTemplate jdbcTemplate
+
+    @Autowired
+    public Franchise(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource)
+    }
+    
+    @ResponseBody
+    @RequestMapping('/franchise/{id}')
+    String franchiseId(@PathVariable Long id) {
+        try {
+            return jdbcTemplate.queryForMap('SELECT id, title FROM franchises WHERE id=?', id)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+    
+    @ResponseBody
+    @RequestMapping('/franchise/')
+    String franchises() {
+        try {
+            return jdbcTemplate.queryForList('SELECT id, title FROM franchises')
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+}
+</code></pre>
+
+<p>And similarly for Games:</p>
+
+<pre><code>package com.mycom
+
+import javax.sql.DataSource
+
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
+
+import com.fasterxml.jackson.databind.node.NodeCursor.Object;
+
+@Controller
+class Game {
+    private JdbcTemplate jdbcTemplate
+
+    @Autowired
+    public Game(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource)
+    }
+    
+    @ResponseBody
+    @RequestMapping('/franchise/{franchiseId}/game/{id}')
+    String gameId(@PathVariable Long franchiseId, @PathVariable Long id) {
+        try {
+            return jdbcTemplate.queryForMap('SELECT id, name, release FROM games WHERE franchise_id=? AND id=?', franchiseId, id)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+    
+    @ResponseBody
+    @RequestMapping('/franchise/{franchiseId}/game')
+    String games(@PathVariable Long franchiseId) {
+        try {
+            return jdbcTemplate.queryForList('SELECT id, name, release FROM games WHERE franchise_id=?', franchiseId)
+        } catch(EmptyResultDataAccessException ex) {
+            return Collections.EMPTY_MAP
+        }
+    }
+}
+</code></pre>
+
+<h2 id="running">Running</h2>
+
+<p>And that&rsquo;s it. Six code files and a build file gives us a full fledged REST service running locally, ready for an app to start consuming it.</p>
+
+<p>To run the sample, open a command prompt and execute <code>gradlew run</code>. This will download dependencies, compile the code, package it into a jar and execute the main class.</p>
+
+<p>Visit <code>http://localhost:9080/franchise/1</code> and other variants to see the JSON responses.</p>
+
+<h2 id="wrap-up">Wrap up</h2>
+
+<p>Not only was the above easy to learn, but it opens up a lot of possibilities for local test services. Spring Boot can also easily be deployed to <a href="http://www.cloudfoundry.com/" target="_blank">Cloud Foundry</a>, Spring&rsquo;s favored cloud provider.</p>
+
+<p>In the end, how is Spring Boot anything other than magic? We currently have enough trouble accepting Groovy in an enterprise environment, and Groovy is just making Java easier to work with. Spring Boot makes Spring apps easier, so it will face the same hurdles in large organizations that Groovy faces. And, just like Groovy, the best way to introduce Spring Boot may be through testing. Because, &ldquo;Who cares if it&rsquo;s only used for tests&rdquo;. Then, once we have it in all our tests, it will naturally begin to grow until we have production Spring Boot apps.</p>
+
+<p>Hopefully, by the time this project reaches 1.0, we&rsquo;ll see a lot of clever new features to make our Spring developer&rsquo;s lives easier.</p>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/" rel="prev"><span>«Previous</span><p>Adding Static Content To Spring Boot MVC</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2013/08/24/do-not-fear-the-computer/" rel="next"><span>Next»</span><p>Do Not Fear the Computer</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

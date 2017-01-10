@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lets set up Ember.js</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="Lets set up Ember.js" />
+<meta property="og:description" content="Ember.js is an interesting creature. This is the first client-side MVC I&rsquo;ve looked into. Apparently calling these applications &ldquo;single page apps&rdquo; are looked down upon, even though they are driven from a single HTML page. Single DOM applications seems more appropriate.
+Based on previous experience learning new technologies, I&rsquo;ve found that I am only able to understand the technology once I have a model of what&rsquo;s going on behind the scenes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2013/08/03/lets-set-up-ember-js/" />
+
+
+<meta property="og:updated_time" content="2013-08-04T04:12:36&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">Lets set up Ember.js</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2013-08-04 04:12:36 &#43;0000 &#43;0000">August 04, 2013</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			
+
+<p><a title="Ember.js home page" href="http://emberjs.com/">Ember.js</a> is an interesting creature. This is the first client-side MVC I&rsquo;ve looked into. Apparently calling these applications &ldquo;single page apps&rdquo; are looked down upon, even though they are driven from a single HTML page. Single DOM applications seems more appropriate.</p>
+
+<p>Based on previous experience learning new technologies, I&rsquo;ve found that I am only able to understand the technology once I have a model of what&rsquo;s going on behind the scenes. It was only when I realized how reflection and Java Beans could be used to implement Spring&rsquo;s inversion of control that I could really start working with it.</p>
+
+<p>Before this understanding occurs, everything is magic. I don&rsquo;t like programming that runs on magic as magic is rather unpredictable.</p>
+
+<p>With Ember.js, I struggled to follow how the examples and samples pulled everything together, but then I read the <a title="Ember.js Naming Conventions" href="http://emberjs.com/guides/concepts/naming-conventions/">Naming Conventions</a> document, and everything became clear.</p>
+
+<p>To be honest, the Ember guides are quite good. They take a conversational approach to documentation instead of a fact based approach.</p>
+
+<p>However, all the examples available so far have tried too hard to make the example &ldquo;pretty&rdquo; or &ldquo;realistic&rdquo;. That is, the examples have plenty of HTML structure to support CSS styles and the data model pulls from a related REST service with Ember Data. This detracts from the learning process. Yes, the result looks pretty, and the data is dynamic, but the example code is cluttered and involves concepts outside of Ember.js itself.</p>
+
+<h2 id="the-ugly-app">The Ugly App</h2>
+
+<p>So, here&rsquo;s my example, an ugly Ember.js app. It does very little: When we visit the app, a list of game franchises are listed; clicking on a franchise will list games in the franchise; and clicking on a game will show us the original release date.</p>
+
+<p>This is supposed to be simple and will help show off different parts of Ember such as routes and how they connect the model to the template.</p>
+
+<p>Lets get the annoying stuff out the way: This example uses Ember.js 1.0 RC6. It consists of an HTML page, a javascript file representing the application, and all dependencies. You can find the code on GitHub here: <a href="https://github.com/jaylindquist/ember-template">https://github.com/jaylindquist/ember-template</a></p>
+
+<p>Since we aren&rsquo;t using any styles, out base HTML page is a bit bare, but we still need it:</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot; /&gt;
+&lt;title&gt;Ember Template&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- ember templates go here --&gt;
+
+&lt;script src=&quot;js/libs/jquery-1.9.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/libs/handlebars-1.0.0-rc.4.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/libs/ember-1.0.0-rc.6.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/libs/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/games.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>All the Ember heavy lifting takes place in <code>js/games.js</code>.</p>
+
+<h2 id="ember-parts">Ember Parts</h2>
+
+<p>In order to get Ember up and running, we need some common components:</p>
+
+<ul>
+<li>Application - the main Ember application</li>
+<li>Model - our actual data with methods to get at the information</li>
+<li>Router - a description of the paths supported by the application and how the app will determine which models to load</li>
+<li>Routes - how to tell ember which models to load based on the current URL / route</li>
+<li>Templates - how to actually display the information to the user</li>
+</ul>
+
+<h3 id="application">Application</h3>
+
+<p>We start with the Application. This is easy enough:</p>
+
+<pre><code>App = Ember.Application.create({});
+</code></pre>
+
+<h3 id="model">Model</h3>
+
+<p>I&rsquo;ll say little about the model for now. In this case, I am not using Ember Data. Instead, I am using a plain old JavaScript object. I then store the object in the application for easy reference.</p>
+
+<p>All you really need to know is that the methods on the model exist and do what they say:</p>
+
+<pre><code>Store = {
+    franchises: Ember.A(),
+    defaultFranchise: function() {...},
+    get: function(id) {...},
+    init: function() {
+        if(this.franchises.length == 0) {
+            this.franchises.pushObject(App.Franchise.create({
+                id: 0,
+                title:'Final Fantasy',
+                games: Ember.A(),
+                defaultGame: function() {...},
+                get: function(id) {...},
+                init: function() {...}
+            }));
+            this.franchises.pushObject(App.Franchise.create({...}));
+            ...
+        });
+    }
+};
+
+App.Franchise = Ember.Object.extend({});
+App.Game = Ember.Object.extend({});
+
+// assign the model to the App for reference
+App.GameStore = Store;
+App.GameStore.init();
+</code></pre>
+
+<h3 id="router">Router</h3>
+
+<p>The router will define most of our application. When creating a router, you define the routes with names and paths. Once you have a name of a route, Ember will automatically look for routes and controllers with specific names. So, a route named <code>franchise</code> will have a <code>FranchiseRoute</code> and a <code>FranchiseController</code>. See the naming conventions for more information.</p>
+
+<pre><code>App.Router.map(function() {
+    this.resource('franchise', { path:'/franchise/:franchise_id'}, function() {
+        this.resource('game', { path: '/game/:game_id' });
+    });
+});
+</code></pre>
+
+<p>Here, we&rsquo;ve defined two routes, a <code>franchise</code> route that Ember will load whenever <code>/franchise</code> is part of the path. An optional franchise ID can also be a part of the path. The second route is under the <code>franchise</code> route. Whenever Ember sees the <code>/franchise/{franchise_id}/game</code> URL, the <code>game</code> route will be loaded.</p>
+
+<h3 id="routes">Routes</h3>
+
+<p>Even though we have only defined two routes, there are four routes that we want to define.</p>
+
+<ul>
+<li><code>ApplicationRoute (/)</code> - What happens when the root of the site (<code>/</code>) is visited? The <code>ApplicationRoute</code> is used to add a list of franchises to the controller.</li>
+<li><code>IndexRoute (/)</code> - If the <code>ApplicationRoute</code> is only adding a list of franchises, what is getting displayed? Simple, the root of the site will actually be directed to the <code>IndexRoute</code>, which, in this case, will redirect the user to the franchise route with the default franchise.</li>
+<li><code>FranchiseRoute (/franchise/{franchise_id})</code> - Now that we&rsquo;ve reached the franchise route, we will need to load the model. In this case, we want to take the <code>franchise_id</code> that we defined in the <code>App.Router</code> from the URL and load the specified franchise.</li>
+<li><code>GameRoute (/franchise/{franchise_id}/game/{game_id})</code> - like the <code>FranchiseRoute</code>, this route will pull the <code>game_id</code> from the URL and load the requested game model.</li>
+</ul>
+
+<p>Translating this to code, we get:</p>
+
+<pre><code>App.ApplicationRoute = Ember.Route.extend({
+    setupController: function(applicationController) {
+        applicationController.set('franchises', App.GameStore.franchises);
+    }
+});
+
+App.IndexRoute = Ember.Route.extend({
+    redirect: function() {
+        this.transitionTo('franchise', App.GameStore.defaultFranchise());
+    }
+});
+
+App.FranchiseRoute = Ember.Route.extend({
+    model: function(params) {
+        return App.GameStore.get(parseInt(params.franchise_id));
+    }
+});
+
+App.GameRoute = Ember.Route.extend({
+    model: function(params) {
+        return this.modelFor('franchise').get(parseInt(params.game_id));
+    }
+});
+</code></pre>
+
+<p>Note: a url with both a franchise and a game will pass through the <code>ApplicationRoute</code>, <code>FranchiseRoute</code>, and <code>GameRoute</code>. This is important to understand because each route&rsquo;s template will also be rendered.</p>
+
+<h3 id="templates">Templates</h3>
+
+<p>Back to the HTML, notice above that there is a spot for us to store our templates.</p>
+
+<p>This application has three templates that correspond to the four routes we created earlier:</p>
+
+<ul>
+<li>Default template - this template has no ID attribute, so Ember assumes it is for the base application route (<code>/</code>). This URL will trigger both the <code>ApplicationRoute</code> and the <code>IndexRoute</code>. The template will then have access to the <code>franchises</code> property we added above.</li>
+<li><code>franchise</code> - this corresponds to the <code>FranchiseRoute</code> above and will be rendered as the default template&rsquo;s <code>{{outlet}}</code>. It will have access to the <code>franchise</code> loaded as the template&rsquo;s model implicitly.</li>
+<li><code>game</code> - similarly, this template is loaded as the franchise&rsquo;s <code>{{outlet}}</code> and will have the implicit <code>game</code> model.</li>
+</ul>
+
+<pre><code>&lt;script type=&quot;text/x-handlebars&quot;&gt;
+    &lt;h1&gt;Franchises&lt;/h1&gt;
+    &lt;ul&gt;
+        {{#each franchise in franchises}}
+            * {{#linkTo 'franchise' franchise}}{{franchise.title}}{{/linkTo}}
+        {{/each}}
+    &lt;/ul&gt;
+
+    {{outlet}}
+&lt;/script&gt;
+
+&lt;script type=&quot;text/x-handlebars&quot; id=&quot;franchise&quot;&gt;
+    ## {{title}}
+    &lt;ul&gt;
+        {{#each game in games}}
+        * {{#linkTo 'game' game}}{{game.title}}{{/linkTo}}
+        {{/each}}
+    &lt;/ul&gt;
+    {{outlet}}
+&lt;/script&gt;
+
+&lt;script type=&quot;text/x-handlebars&quot; id=&quot;game&quot;&gt;
+    &lt;dl&gt;
+        &lt;dt&gt;{{title}}&lt;/dt&gt;
+        &lt;dd&gt;{{releaseDate}}&lt;/dd&gt;
+    &lt;/dl&gt;
+&lt;/script&gt;
+</code></pre>
+
+<p>Again, note that a URL with both a franchise and a game will need to render all three templates as each template will be loaded as an <code>{{outlet}}</code> in each of the parent templates.</p>
+
+<p>Also of note, the templates are each loaded in the order of URL precedence. So, when Ember sees <code>/franchise/2/game/1</code> it will purposely load the default template with the franchise template in the <code>{{outlet}}</code> and the game template will be loaded in the franchise&rsquo;s <code>{{outlet}}</code>.</p>
+
+<p>This, of course, is on purpose and is part of a RESTful architecture and design. It also helps tie everything back together. The URL, routes, and templates are (as well as controllers, not covered here) are all linked tightly. This is where Ember&rsquo;s magic takes place and is the first step towards understanding the framework.</p>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2013/08/21/vulnerabilies-of-good-intentions/" rel="prev"><span>«Previous</span><p>Vulnerabilies of Good Intentions</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2013/07/08/always-be-refactoring/" rel="next"><span>Next»</span><p>Always Be Refactoring</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

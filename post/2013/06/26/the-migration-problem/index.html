@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Migration Problem</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="The Migration Problem" />
+<meta property="og:description" content="Being able to write code for programmers has an interesting problem. What do you do when you want to change the API or how a component works?
+Typically, in an object oriented approach, you ensure that you are programming to valid interfaces only and that you have abstracted the problem away enough that any change you make is undetectable.
+You can&rsquo;t rely on that happening, though. Sometimes the API changes so dramatically that programming to the old interfaces is like stuffing a round peg into a square hole." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2013/06/26/the-migration-problem/" />
+
+
+<meta property="og:updated_time" content="2013-06-26T11:45:01&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">The Migration Problem</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2013-06-26 11:45:01 &#43;0000 &#43;0000">June 26, 2013</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			<p>Being able to write code for programmers has an interesting problem. What do you do when you want to change the API or how a component works?</p>
+
+<p>Typically, in an object oriented approach, you ensure that you are programming to valid interfaces only and that you have abstracted the problem away enough that any change you make is undetectable.</p>
+
+<p>You can&rsquo;t rely on that happening, though. Sometimes the API changes so dramatically that programming to the old interfaces is like stuffing a round peg into a square hole.</p>
+
+<p>Now you have a migration problem. Version 2 of your API is available and is incompatible with Version 1. What do you do ?</p>
+
+<p>You have a couple options:</p>
+
+<ul>
+<li>You can take Salesforce&rsquo;s approach and keep all your APIs alive, but that means required maintenance on old code and upkeep for any servers you use.</li>
+<li>You can deprecate and kill off the old API, but you&rsquo;ll find your current users are rather attached to version 1, if only because migrating to version 2 costs time and resources that could be used to make money.</li>
+<li>You can create some migration helpers to ease developer&rsquo;s life while forcing a migration.</li>
+</ul>
+
+<p>It&rsquo;s the last option that truly speaks to someone writing code for programmers. The slow migration approach will use some rewritten version 1 code that amounts to glue binding the old API to the new API. Developers can then slowly migrate to version 2 while using version 1 in small steps.</p>
+
+<p>This glue code is temporary and goes against most programming principles. It will also be rather ugly. However, as the owner of the API, if you can take on the ugly task required by the migration, all your API users can now avoid the ugly code they would have had to write to begin with.</p>
+
+<p>Hopefully, migrating to the glue code is easier for the developers than completely migrating to version 2. Eventually, you need to kill the old API. This can be done once you know everyone is using the glue code.</p>
+
+<p>Kill off version 1 and then slowly kill off the glue code, which can hopefully be done without your developers needing to do anything beyond flipping a switch.</p>
+
+<p>There is no way out of the ugly code required by a slow migration. However, as an API owner, you can make everyone else&rsquo;s lives easier by making your life slightly more difficult.</p>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2013/07/08/always-be-refactoring/" rel="prev"><span>«Previous</span><p>Always Be Refactoring</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/" rel="next"><span>Next»</span><p>Creating a Reusable URL with Spring RestTemplate</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

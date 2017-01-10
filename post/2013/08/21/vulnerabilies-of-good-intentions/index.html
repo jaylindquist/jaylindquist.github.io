@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vulnerabilies of Good Intentions</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="Vulnerabilies of Good Intentions" />
+<meta property="og:description" content="One of the saddest vulnerabilities introduced into applications are those that are created by design. These vulnerabilities are explicitly written into application requirements or have specific user stories. Often, the vulnerability takes on the form of functionality requested by one or more stakeholders.
+Consider the following: Facebook privacy flaw exposes Mark Zuckerberg photos. This flaw was created with only good intentions in mind. Facebook prides itself on keeping the site clean and inoffensive." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2013/08/21/vulnerabilies-of-good-intentions/" />
+
+
+<meta property="og:updated_time" content="2013-08-22T04:25:28&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">Vulnerabilies of Good Intentions</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2013-08-22 04:25:28 &#43;0000 &#43;0000">August 22, 2013</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			<p>One of the saddest vulnerabilities introduced into applications are those that are created by design. These vulnerabilities are explicitly written into application requirements or have specific user stories. Often, the vulnerability takes on the form of functionality requested by one or more stakeholders.</p>
+
+<p>Consider the following: <a href="http://www.telegraph.co.uk/technology/facebook/8938725/Facebook-privacy-flaw-exposes-Mark-Zuckerberg-photos.html">Facebook privacy flaw exposes Mark Zuckerberg photos</a>. This flaw was created with only good intentions in mind. Facebook prides itself on keeping the site clean and inoffensive. Owners of the site look for any tool that can help weed out the bad photos from the good. Considering the <a href="http://blog.1000memories.com/94-number-of-photos-ever-taken-digital-and-analog-in-shoebox">size of Facebook&rsquo;s image library</a>, I would want help as well.</p>
+
+<p>So, someone had a great idea: we should crowdsource the effort. Some of us can manually look through photos; maybe we can create an automated scanner to tag possibly offensive pictures; but our best bet is our user base. Those who are actually offended will be empowered to report offending pics.</p>
+
+<p>Enter the Reporting feature:</p>
+
+<ul>
+<li>Alice sees Eve&rsquo;s photo on Facebook. The photo itself may or may not follow Facebook&rsquo;s guidelines, but all that really matters here is that Alice is taken aback.</li>
+<li>Alice clicks the &ldquo;Report&rdquo; link to alert Facebook of this deeply offensive image. She&rsquo;ll need to fill out some information about why it is offensive, but it&rsquo;s straight forward and she submits the form.
+<br /></li>
+</ul>
+
+<p>This feature has a few benefits: Facebook staff can be put to better use reviewing possibly offensive images instead of random images; Users get to feel good about themselves that they helped clean up a site they love; repeat offenders can be duly punished to the limits of  Facebook&rsquo;s Terms and Conditions.</p>
+
+<p>However, where there is one offensive picture, there could be many more. An empowered user who has already reported an image has it set in her mind that image reporting is her duty. If Alice saw the rest of Eve&rsquo;s photos, she could review those as well. So, we tweak the code and a new feature is born:Alice sees Eve&rsquo;s photo on Facebook. The photo itself may or may not follow Facebook&rsquo;s guidelines, but all that really matters here is that Alice is taken aback.</p>
+
+<ul>
+<li>Alice sees Eve&rsquo;s photo on Facebook. The photo itself may or may not follow Facebook&rsquo;s guidelines, but all that really matters here is that Alice is taken aback.</li>
+<li>Alice clicks the &ldquo;Report&rdquo; link to alert Facebook of this deeply offensive image. She&rsquo;ll need to fill out some information about why it is offensive, but it&rsquo;s straight forward and she submits the form.</li>
+<li>Facebook show&rsquo;s Alice the rest of Eve&rsquo;s pictures in the hope that other offensive images will be reported.</li>
+<li>Alice selects more offensive images and her duty is done.</li>
+</ul>
+
+<p>This is great functionality: User feel more empowered, as though they are helping the community as partial owners of the site; Facebook staff has even less work to do; repeat offenders are identified quicker than ever before.</p>
+
+<p>However, there is one flaw in the plan that was overlooked. Because any image can be flagged as inappropriate, user avatars can be flagged as well. Avatars are public as they help with identification when searching for friends. So now, we have a way to report anyone&rsquo;s avatar - which is good - but the new feature will then show us the rest of the user&rsquo;s library - which is bad. It is bad because we now have access to anyone&rsquo;s image library, no matter what privacy setting they used, and all we need to do is report the user&rsquo;s avatar.</p>
+
+<p>Finally, this takes us down to the end game: Mark Zuckerberg, CEO and founder of Facebook, holding a dead chicken by the legs. Private photos posted on the internet for all to see. All from functionality and requirements requested by the business. Functionality with only good intentions, but with a security hole one can drive a truck through.</p>
+
+<p>How do we stop this? Requirements and use cases need to include<a href="https://www.owasp.org/index.php/Application_Threat_Modeling"> abuse cases</a> as well. That is, when listing out features and how they will be used, take a moment to think of how the features can be misused as well.</p>
+
+<p>As a malicious user, I want to access private user photos in order to cause harm and mischief. How can I accomplish this?</p>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2013/08/24/do-not-fear-the-computer/" rel="prev"><span>«Previous</span><p>Do Not Fear the Computer</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2013/08/03/lets-set-up-ember-js/" rel="next"><span>Next»</span><p>Lets set up Ember.js</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

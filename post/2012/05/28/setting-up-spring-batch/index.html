@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setting Up Spring Batch</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="Setting Up Spring Batch" />
+<meta property="og:description" content="Lets do the setup work that we&rsquo;ll rely on for the rest of the project. We want to configure Spring Batch&rsquo;s database, configure logging and create a simple reader and writer. All code available on the Google Code project page for GLExtensions.
+Spring Batch Database The database used by Spring Batch is very handy. It allows for restarting jobs after failure, logging of job progress and real time statistics via the Spring Batch Admin Console." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2012/05/28/setting-up-spring-batch/" />
+
+
+<meta property="og:updated_time" content="2012-05-29T02:48:49&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">Setting Up Spring Batch</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2012-05-29 02:48:49 &#43;0000 &#43;0000">May 29, 2012</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			
+
+<p>Lets do the setup work that we&rsquo;ll rely on for the rest of the project. We want to configure Spring Batch&rsquo;s database, configure logging and create a simple reader and writer. All code available on the Google Code project page for <a href="http://code.google.com/p/glextensions/" title="GLExtensions on Google Code">GLExtensions</a>.</p>
+
+<h2 id="spring-batch-database">Spring Batch Database</h2>
+
+<p>The database used by Spring Batch is very handy. It allows for restarting jobs after failure, logging of job progress and real time statistics via the Spring Batch Admin Console. There is also the option to use a Map based repository instead which allows for in-memory job runs, but lacks the advantages of the database repository. A third option is to use an in-memory database setup, no advantages from an actual database setup, but it will allow us to switch to a real database easier in the future. This is the setup that Spring Tool Suite gives us when selecting a Spring Batch project template.</p>
+
+<p>First, the repository setup that will configure HQLDB as the Spring Batch repo. The following properties file will configure the database with the Spring Batch schema:</p>
+
+<blockquote>
+<p>batch.properties</p>
+</blockquote>
+
+<pre><code>batch.jdbc.driver=org.hsqldb.jdbcDriver
+batch.jdbc.url=jdbc:hsqldb:mem:testdb;sql.enforce_strict_size=true
+batch.jdbc.user=sa
+batch.jdbc.password=
+batch.schema=
+batch.schema.script=classpath:/org/springframework/batch/core/schema-hsqldb.sql
+</code></pre>
+
+<p>The following beans file will set up the job repository, configure component scan and import the jobs configuration which will be discussed later:</p>
+
+<blockquote>
+<p>beans.xml</p>
+
+<pre><code> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+	xmlns:jdbc=&quot;http://www.springframework.org/schema/jdbc&quot;
+	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd&quot;&gt;
+
+	 &lt;context:property-placeholder location=&quot;classpath:batch.properties&quot; /&gt;
+	 &lt;context:component-scan base-package=&quot;com.bitwiseor&quot; /&gt;
+
+	 &lt;import resource=&quot;classpath:jobs.xml&quot;/&gt;
+	
+	 &lt;jdbc:initialize-database&gt;
+		 &lt;jdbc:script location=&quot;${batch.schema.script}&quot; /&gt;
+	 &lt;/jdbc:initialize-database&gt;
+ &lt;/beans&gt;
+</code></pre>
+</blockquote>
+
+<p>The rest of the database setup happens in code:</p>
+
+<blockquote>
+<p>BatchConfig.groovy</p>
+</blockquote>
+
+<pre><code>package com.bitwiseor.extensions.config
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Configuration
+class BatchConfig {
+	@Value('${batch.jdbc.driver}')
+	private def driverClassName
+
+	@Value('${batch.jdbc.url}')
+	private def driverUrl
+
+	@Value('${batch.jdbc.user}')
+	private def driverUsername
+
+	@Value('${batch.jdbc.password}')
+	private def driverPassword
+
+	@Autowired
+	@Qualifier(&quot;jobRepository&quot;)
+	def jobRepository
+
+	@Bean
+	def dataSource() {
+		BasicDataSource dataSource = new BasicDataSource()
+		dataSource.driverClassName = driverClassName
+		dataSource.url = driverUrl
+		dataSource.username = driverUsername
+		dataSource.password = driverPassword
+		return dataSource
+	}
+
+	@Bean
+	def jobLauncher() {
+		SimpleJobLauncher jobLauncher = new SimpleJobLauncher()
+		jobLauncher.jobRepository = jobRepository
+		return jobLauncher
+	}
+
+	@Bean
+	def transactionManager() {
+		return new DataSourceTransactionManager(dataSource())
+	}
+}
+</code></pre>
+
+<h2 id="logging-config">Logging Config</h2>
+
+<p>We also want logging to keep track of the work we&rsquo;ve done. Using SLF4J and Logback is easy enough. All we need is the Logback configuration:</p>
+
+<blockquote>
+<p>logback.xml</p>
+</blockquote>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;configuration&gt;
+     &lt;appender name=&quot;CONSOLE&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+         &lt;encoder&gt;
+             &lt;pattern&gt;%5p %-25logger{25} %m %n &lt;/pattern&gt;
+         &lt;/encoder&gt;
+     &lt;/appender&gt;
+
+     &lt;logger name=&quot;com.bitwiseor&quot;&gt;
+         &lt;level value=&quot;INFO&quot; /&gt;
+     &lt;/logger&gt;
+
+     &lt;logger name=&quot;org.springframework&quot;&gt;
+         &lt;level value=&quot;ERROR&quot; /&gt;
+     &lt;/logger&gt;
+
+     &lt;root&gt;
+         &lt;level value=&quot;INFO&quot; /&gt;
+         &lt;appender-ref ref=&quot;CONSOLE&quot; /&gt;
+     &lt;/root&gt;
+ &lt;/configuration&gt;
+</code></pre>
+
+<h2 id="job-configuration">Job Configuration</h2>
+
+<p>Now for the interesting piece: job configuration. Spring Batch has an easy pattern that can be followed by most batch applications: read, process, write. The ItemReader interface has a single method to read an item, the ItemProcessor interface converts the read item into a writable item, and the ItemWriter interface simply writes a batch of items out to wherever it needs to. For the sample job to make sure everything is running correctly, we&rsquo;ll write an ItemReader to read files from a directory, and an ItemWriter that simply writes the item to the info log.</p>
+
+<p>First, the ItemReader. The interface has a single method call that must return an object. Once there are no more objects to read, it returns null. DirectoryItemReader will get an injected directory, then create an iterator once the bean is instantiated. The simple read call will return a file in the directory until there are no files using the iterator. Easy enough.</p>
+
+<blockquote>
+<p>DirectoryItemReader.groovy</p>
+</blockquote>
+
+<pre><code>package com.bitwiseor.extensions.batch
+
+import org.springframework.batch.item.ItemReader
+import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
+
+@Component
+class DirectoryItemReader implements ItemReader &lt;File&gt;, InitializingBean {
+	@Value('D:/code/glextensions') // hard coded for simplicity
+	File directory
+	private Iterator &lt;File&gt; iterator;
+	
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		assert directory.isDirectory()
+		this.iterator = Arrays.asList(directory.listFiles()).iterator()
+	}
+	
+	@Override
+	File read() {
+		return iterator.hasNext()? iterator.next() : null
+	}
+}
+</code></pre>
+
+<p>And then the ItemWriter. The LoggingItemWriter simply logs each item out as an info level log using SLF4J. Groovy makes this stupidly simple.</p>
+
+<blockquote>
+<p>LoggingItemWriter.groovy</p>
+</blockquote>
+
+<pre><code>package com.bitwiseor.extensions.batch
+
+import groovy.util.logging.Slf4j
+
+import java.util.List;
+
+import org.springframework.batch.item.ItemWriter
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Component
+public class LoggingItemWriter implements ItemWriter {
+	@Override
+	void write(List items) {
+		items.each{ log.info it.toString() }
+	}
+}
+</code></pre>
+
+<p>Lastly, we need our job XML configuration. The job simply defines the reader and writer and executes in batches of 10.</p>
+
+<blockquote>
+<p>jobs.xml</p>
+</blockquote>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;beans:beans xmlns:beans=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xmlns=&quot;http://www.springframework.org/schema/batch&quot;
+	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd&quot;&gt;
+
+	 &lt;job-repository id=&quot;jobRepository&quot; /&gt;
+	
+	 &lt;job id=&quot;sampleJob&quot;&gt;
+		 &lt;step id=&quot;readDir&quot;&gt;
+			 &lt;tasklet&gt;
+				 &lt;chunk reader=&quot;directoryItemReader&quot; writer=&quot;loggingItemWriter&quot; commit-interval=&quot;10&quot;/&gt;
+			 &lt;/tasklet&gt;
+		 &lt;/step&gt;
+	 &lt;/job&gt;
+ &lt;/beans:beans&gt;
+</code></pre>
+
+<h2 id="build-file">Build File</h2>
+
+<p>In order to build and run everything, we&rsquo;ll use gradle, a Groovy based build tool. The following build file will collect all our dependencies and setup a test script to run the sample job.</p>
+
+<blockquote>
+<p>build.gradle</p>
+</blockquote>
+
+<pre><code>apply plugin:'groovy'
+apply plugin:'eclipse'
+apply plugin:'application'
+
+repositories {
+	mavenCentral()
+}
+
+def springFrameworkVersion = '3.0.6.RELEASE'
+def springBatchVersion = '2.1.7.RELEASE'
+def slf4jVersion = '1.6.4'
+def logbackVersion = '1.0.3'
+
+mainClassName = 'org.springframework.batch.core.launch.support.CommandLineJobRunner'
+run {
+    args = ['classpath:/beans.xml', 'sampleJob']
+}
+
+dependencies {
+	compile gradleApi()
+	groovy localGroovy()
+	
+	compile &quot;org.springframework:spring-jdbc:${springFrameworkVersion}&quot;
+	compile &quot;org.springframework:spring-context:${springFrameworkVersion}&quot;
+	compile &quot;cglib:cglib-nodep:2.2&quot;
+	compile &quot;org.springframework.batch:spring-batch-core:${springBatchVersion}&quot;
+	compile &quot;commons-dbcp:commons-dbcp:1.2.2&quot;
+	compile &quot;hsqldb:hsqldb:1.8.0.7&quot;	
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.0-rc-3'
+}
+</code></pre>
+
+<p>Running this with <code>gradlew install run</code> will print out the files in our directory as INFO messages as expected. Now we can get to work creating the actual job that will convert extension specifications into wiki documents.</p>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2013/05/20/you-should-be-ashamed-of-yourself/" rel="prev"><span>«Previous</span><p>You should be ashamed of yourself</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2012/05/24/glextension-registry/" rel="next"><span>Next»</span><p>GLExtension Registry</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

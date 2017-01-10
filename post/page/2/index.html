@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Posts</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/post/" />
+
+
+<meta property="og:updated_time" content="2013-06-03T03:15:24&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="alternate" type="application/rss+xml" title="BitwiseOR Feed" href="/post/index.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+	<div class="main-content mr-loop mr-content" role="main">
+		
+		<header class="page-header">
+			<h1 class="page-title">Posts</h1>
+		</header>
+		
+		
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/06/02/lets-set-up-spring-mvc/" rel="bookmark">Lets set up Spring MVC</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-06-03 03:15:24 &#43;0000 &#43;0000">June 03, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						
+
+<p>Welcome to the <a href="http://www.springsource.org/features/modern-web">Modern Web</a>, here&rsquo;s your library. Spring MVC comes standard with the monolith that is the Spring Framework. It certainly makes creating a web app easy&hellip; once it&rsquo;s set up. Getting started, though, is the difficult part.</p>
+
+<p>This isn&rsquo;t meant to be a very educational article, only an instructive article. If you are unfamiliar with the concepts listed, google is your friend. There are a lot of moving pieces to this, so lets dive in.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>What do we want to accomplish? We want to set up Spring MVC to handle all *.html files, not interact with resources such as javascript and CSS files, forward rendering to JSP files under WEB-INF/jsp and use Logback for logging.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>There&rsquo;s one downside for Spring, a lot of jars are involved. To accomplish the above we need the following jars:</p>
+
+<pre><code>aopalliance-1.0.jar
+commons-logging-1.1.3.jar
+groovy-all-2.1.1.jar
+jcl-over-slf4j-1.7.5.jar
+jstl-1.2.jar
+logback-classic-1.0.13.jar
+logback-core-1.0.13.jar
+slf4j-api-1.7.5.jar
+spring-aop-3.2.3.RELEASE.jar
+spring-beans-3.2.3.RELEASE.jar
+spring-context-3.2.3.RELEASE.jar
+spring-core-3.2.3.RELEASE.jar
+spring-expression-3.2.3.RELEASE.jar
+spring-web-3.2.3.RELEASE.jar
+spring-webmvc-3.2.3.RELEASE.jar
+</code></pre>
+
+<p>Your versions may vary</p>
+
+<h2 id="file-structure">File Structure</h2>
+
+<p>We will order our files in the following directory structure:</p>
+
+<pre><code>\---src
+    +---main
+    |   +---groovy
+    |   |   \---com
+    |   |       \---mycom
+    |   |           \---&lt;controller&gt;.groovy
+    |   \---resources
+    |       \---logback.xml
+    \---webapp
+        +---css
+        +---images
+        +---js
+        \---WEB-INF
+            +---web.xml
+            +---spring-servlet.xml
+            \---jsp
+                \---&lt;view&gt;.jsp
+</code></pre>
+
+<p><code>&lt;controller&gt;.groovy</code> will hold the controller code that will load the model and forward to the <code>&lt;view&gt;.jsp</code> under <code>WEB-INF/jsp</code>. <code>logback.xml</code> will configure our logging to print out all the debug statements to make sure the app is working correctly. <code>css</code>, <code>images</code> and <code>js</code> hold the appropriate resource files. <code>spring-servlet.xml</code> configures Spring MVC to find our controllers and views. And <code>web.xml</code> is the standard deployment descriptor.</p>
+
+<h2 id="web-xml">web.xml</h2>
+
+<p>The deployment descriptor sets up 4 items: the welcome files list, set to index.html, <a title="defaultHtmlEscape" href="http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#spring.tld.htmlEscape">default HTML escaping</a> to prevent XSS attacks, the <a title="Spring MVC DispatcherServlet" href="http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-servlet">DispatcherServlet</a>, and which files Spring MVC will handle.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; version=&quot;2.5&quot;&gt;
+  &lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;
+  &lt;/welcome-file-list&gt;
+
+  &lt;!-- Escape HTML output by default --&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;defaultHtmlEscape&lt;/param-name&gt;
+    &lt;param-value&gt;true&lt;/param-value&gt;
+  &lt;/context-param&gt;
+
+  &lt;!-- This servlet named &quot;spring&quot; will make Spring MVC look for
+       spring-servlet.xml under WEB-INF --&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;spring&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+
+  &lt;!-- Map Spring MVC to all .html files --&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;spring&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.html&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+
+<h2 id="spring-servlet-xml">spring-servlet.xml</h2>
+
+<p>The *-servlet.xml file is automatically loaded by the DispatcherServlet based on the servlet name. In this case, Spring will look for spring-servlet.xml. We need to configure this file to do the following: scan our source code for controllers, note that Spring MVC will be driven by annotations (not necessarily needed, but will prevent issues in the future) and tell Spring MVC to resolves views in our WEB-INF/jsp folder.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+  xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+  xsi:schemaLocation=&quot;
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;
+
+  &lt;!-- All annotated Spring classes under this package will be picked up --&gt;
+  &lt;context:component-scan base-package=&quot;com.mycom&quot;/&gt;
+  &lt;!-- Drive Spring MVC with annotations --&gt;
+  &lt;mvc:annotation-driven /&gt;
+
+  &lt;!-- Any view returned by the app will be resolved to WEB-INF/lib/[view].jsp --&gt;
+  &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<p>Since Spring MVC is mapped to *.html, only html files will be picked up. So any images, CSS and javascript can be placed in their respective folders and be picked up with out being processed.</p>
+
+<h2 id="controllers">Controllers</h2>
+
+<p>Any groovy files with the @Controller annotation will be picked up Spring. The controller needs to hold methods that map to a specific URL (an html file, in this case). It will then need return a Model and or View. The string representing the view will be mapped to the corresponding JSP file under WEB-INF/jsp.</p>
+
+<pre><code>package com.mycom.controller
+
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.servlet.ModelAndView
+
+// Ensure Spring picks this class up as a controller
+@Controller
+class DefaultController {
+  // map index.html to WEB-INF/jsp/index.jsp
+  @RequestMapping('/index.html')
+  def index() {
+    return 'index'
+  }
+
+  // map search.html to WEB-INF/jsp/search.jsp with a SearchResults as the model
+  @RequestMapping('/search.html')
+  def search() {
+    return new ModelAndView('search', 'results', new SearchResults(...))
+  }
+}
+</code></pre>
+
+<h2 id="views">Views</h2>
+
+<p>Our views a simple JSP pages that get resolved to WEB-INF/jsp/<view-name>.jsp. Since this is just an article about setup, you will need to see the <a title="Spring MVC views" href="http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-viewresolver">documentation </a>for more information.</p>
+
+<h2 id="logback-xml">logback.xml</h2>
+
+<p>Lastly we configure our logging to print out all our debug statements, letting us know if everything is working correctly.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;configuration debug=&quot;true&quot;&gt;
+  &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;
+        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+      &lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;logger name=&quot;org.springframework&quot; level=&quot;DEBUG&quot;/&gt;
+  &lt;root level=&quot;DEBUG&quot;&gt;
+    &lt;appender-ref ref=&quot;STDOUT&quot; /&gt;
+  &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/31/security-and-usability/" rel="bookmark">Security and Usability</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-31 11:48:40 &#43;0000 &#43;0000">May 31, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>With respect to my last post, cars are actually quite easy to learn and use despite their extreme complexity. A driver can easily move from one vehicle to the next and comfortable operate it with only a quick look at the controls. This made possible by the fact that each car is trying to solve the same problem within the same limitations of size, road construction and regulations.</p>
+
+<p>Security frameworks for programmers have a different set of problems that hinder usability greatly.</p>
+
+<p>They need to solve a great number of security issues: XSS, CSRF, encryption, encoding, file indirection, logging, etc. All these issues are so unrelated that single framework which covers them all would be horrible to learn.</p>
+
+<p>A framework that specializes in a single solution space such as <a href="https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project">CSRFGuard</a> from OWASP can still have usability issues as they are trying to solve a difficult problem after an application has been built.</p>
+
+<p>What developers need is security to be handled below the application level - within their MVC framework or even the language itself. This is needed as security should not be the job of the application programmer. Apps should not need to be designed around security issues. They should be designed around business requirements and security just comes along for the ride.</p>
+
+<p>As framework designers, we need to remember that security is a necessary evil that adds no e real product value. It&rsquo;s insurance that you pay up front to prevent possible issues in the future. In fact, security done right will always look like a waste if time - you&rsquo;ve prevented attacks but no one will realize it as they will never see the actual threats.</p>
+
+<p>I would really like to see OWASP and other security minded organizations contribute more security code to popular MVC frameworks like Spring MVC or JSF instead of creating new third party frameworks that can only work once the application exists.</p>
+
+<p>Both security and car design have large, complex problems to solve and both need increased usability, but security is an always changing field with so many different problems to solve that a common design will never emerge. If we want programmers to secure their applications, then we need to make security &ldquo;just work&rdquo;. Given to choice between preventing possible attacks at vague times in the future or shipping a new product that will earn the company money, we all know which option will be chosen.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/29/lets-have-a-little-talk-about-usability/" rel="bookmark">Let&#39;s Have a Little Talk About Usability</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-30 03:37:36 &#43;0000 &#43;0000">May 30, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>One of the most interesting things about cars, from a usability point of view, is how easy it is to drive one. Once you&rsquo;ve learned how to drive one, nearly any other car or truck is easy to learn But take a moment and think about what is actually involved in controlling a 4 ton piece of metal at 60 miles per hour next to other large, fast moving vehicles and you may start feeling overwhelmed.</p>
+
+<p>It really is a tribute to auto manufacturers and their designers that so many different designs could be so easily accessible to drivers with little introduction to the different designs. Considering that the majority of operations within a car require the driver to execute the action without ever looking, automobiles should really be looked at as a pinnacle of design.</p>
+
+<p>However, I&rsquo;ve recently been seeing an ad on Hulu (which I can&rsquo;t find anywhere) comparing a car to a tablet. The announcer asks the viewer to compare the number of buttons on their car stereo and on their tablet and implores them to enter the future by getting rid of all that old-school, tactile feedback and switch to something requires eye sight for every operation.</p>
+
+<p>Every time I see this ad, I shake my head and cry a little - on the inside. Controlling a car by touchscreen is one of the stupidest and dangerous ideas I can think of. Now, instead of keeping your eyes on the road and changing the radio station by touch alone, you now need to look at your dashboard to find exactly where your finger, while hoping that the touchscreen was responsive enough to detect your selection.</p>
+
+<p>Look at typing on your tablet as an example. If you&rsquo;re used to touch typing, tablet typing is painfully slow and only auto-correct will save you. And unless the build in autonomous driving into new cars, there won&rsquo;t be an equivalent to vehicular auto-correct any time soon.</p>
+
+<p>It&rsquo;s one thing to take a known, good design and throw it out the window - this could even be considered brave and daring in seeing how new features work with their users - but removing usability and pretending it&rsquo;s the main selling point in your product really gets under my skin. Learn from existing <a href="http://www.nngroup.com/articles/ipad-usability-year-one/">usability problems with tablets</a> first and try improve your current design instead of going with what would be considered &ldquo;cool&rdquo;.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/28/there-is-no-such-thing-as-two-2/" rel="bookmark">There is No Such Thing as Two</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-28 12:14:50 &#43;0000 &#43;0000">May 28, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>Years ago, I don&rsquo;t know where, I don&rsquo;t know when, I heard the statement &ldquo;There is no such thing as two.&rdquo; It was about programming in general, and the definition went something like this:
+<ul>
+    <li>You can do something zero times.</li>
+    <li>You can do something one time.</li>
+    <li>You can do something many times.</li>
+</ul></p>
+
+<p>And that&rsquo;s it. You can never do something twice in programming because there is a good chance that once you do something twice, you&rsquo;ll do it a third or fourth time.</p>
+
+<p>This sentiment comes up in many places like the famous <a href="http://en.m.wikipedia.org/wiki/Don't_repeat_yourself">DRY Principal</a> which uses a bit more formal definition of ensuring all pieces of information have a single source of truth.</p>
+
+<p>But DRY is usually meant for data. On the processing side, <a href="http://c2.com/xp/OnceAndOnlyOnce.html">Once and Only Once</a> is more appropriate. If you ever see that you&rsquo;ve repeated yourself, abstract out the similar functionality and call the common code instead.</p>
+
+<p>Even though the same idea is hidden within each of the above statements, I still prefer thinking of the number two as an impossible object.</p>
+
+<p>For one thing, the definition is clearly stated in common words and doesn&rsquo;t try to be academic.</p>
+
+<p>Secondly, the three bullets have hidden meanings found in other coding best practices.
+<ul>
+    <li>You can do something zero times - This is obvious, but drawing it out and stating it explicitly hints at optimization. Any time you refactor code, you should trying to get rid of the parts that are no longer needed. </li>
+    <li>You can do something once - There is no need to prematurely optimize and abstract your code. Wait until you know that a new method or class is needed before increasing the complexity of your code base. </li>
+    <li>You can do something many times - Here is the heart of &ldquo;no such thing as two&rdquo;. Once you&rsquo;ve done something more than once, you should be able to do it as many times as you want. </li>
+</ul></p>
+
+<p>Lastly, the geekier side of me likes the play on binary. You can only use the digits 0 and 1, but you can represent any number you wish. You&rsquo;ll never see a 2.</p>
+
+<p>And, as we all know, <a href="http://m.imdb.com/title/tt0584427/quotes?qt=qt0487524">seeing a 2 can be scary</a>.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/23/spammers-be-spamming/" rel="bookmark">Spammers Be Spamming</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-23 11:37:22 &#43;0000 &#43;0000">May 23, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>It&rsquo;s bad enough that you are spamming me, but did you really have to call my posts &ldquo;rife with spelling errors&rdquo;? Even if it is true, that&rsquo;s just not nice Mr. Porn spammer.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/22/the-new-console-wars/" rel="bookmark">The New Console Wars</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-22 11:57:59 &#43;0000 &#43;0000">May 22, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>With the release of the <a href="http://www.xbox.com/en-US/xboxone/meet-xbox-one">XBox One</a>, the new console wars have finally begun. Depending on whom you talk to, the reaction is either a big yawn or <a href="http://kotaku.com/that-xbox-one-reveal-sure-was-a-disaster-huh-509192266">an enraged scream</a>.</p>
+
+<p>Of the three big consoles, none really hit the niche I&rsquo;m looking for. As a parent of a toddler, who isn&rsquo;t allowed to watch TV, and a newborn, I don&rsquo;t have much time to actually play console games. Instead, we use a PS3 as a media center. The XBox 360 and Wii are both collecting dust.</p>
+
+<p>Wii U&rsquo;s ability to play games on a handheld screen is really appealing to me. If my wife wants to watch Grey&rsquo;s Anatomy, I could still fit in some play time. However, the only good games released on the Wii were existing Nintendo properties, and there is only so much Mario I can play before I get sick of it.</p>
+
+<p>Sony wants to focus on social with their PS4. I personally can stand social. The only reason I&rsquo;m on Facebook is so I can update friends and family on my kids&rsquo; lives, not mine. I don&rsquo;t want to automatically post about whatever game I&rsquo;m playing as none of my friends care about gaming.</p>
+
+<p>Microsoft&rsquo;s XBox One is the most intriguing as they are gearing it towards the media hub that I want. I use my PS3 as a media hub all the time. However, instead of having a cable subscription, we use <a href="http://www.playon.tv">PlayOn</a> and Netflix to watch all our shows. The new XBox doesn&rsquo;t really give me anything new. Controlling live television with Kinect and being able to swap between TV and games instantly are great, but Microsoft insists on charging for services to which I already subscribe and will use far more than Live TV or gaming. I loved Netflix on the 360 until my gold subscription ran out, hence the reason I use PS3 now instead of my XBox.</p>
+
+<p>Each console seems to offer a piece of what I&rsquo;m looking for in a gaming console and media center, but they all have downsides that will keep me away. I suppose it doesn&rsquo;t matter much at this point; I won&rsquo;t be purchasing a new console until the inevitable price drop anyway.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/21/zeldas-phantom-menace/" rel="bookmark">Zelda&#39;s Phantom Menace</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-21 12:05:17 &#43;0000 &#43;0000">May 21, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>About a week ago, I started playing The Legend of Zelda: Phantom Hourglass, a DS game from 2007. Now, at about the halfway point, I feel it is important to note the annoying design choices in the game. Specifically: bad stylus controls, the Phantom Hourglass dungeon itself, and pointless challenges.</p>
+
+<p>Everything in this game must be done using the touch screen. There is no other option. Want to move Link? Press in the direction he Gould move. Want to attack? Swipe or tap. Want to change weapons? Press on the menu. Want to advance through these boring conversations? Keep tapping until everyone shuts up.</p>
+
+<p>There is no reason that every action needs to be done with the stylus. This design makes it impossible to attack while moving or to quickly change between secondary weapons. It&rsquo;s also causing my touchscreen to be scratched. And after The World Ends With You, I&rsquo;m getting tired of game design decisions causing damage to the console.</p>
+
+<p>Secondly, the title&rsquo;s Phantom Hourglass is named after an item repeatedly used in the game giving you an artificial time limit in a central dungeon.</p>
+
+<p>Puzzle solving under a time limit is bad enough, but this game also forces you to solve the same puzzles over and over. You visit the dungeon, make it to the next treasure, go explore, then return to the dungeon and repeat all the same. Puzzles until you make it to a new floor. Eventually, you get a warp to the middle of the dungeon, but its too late. What should be a fun part of the game turns tedious.</p>
+
+<p>The second reason the dungeon is a pain is that all the enemies are invulnerable. Instead of a normal, action focused Zelda, you are suddenly forced onto a stealth game that doesn&rsquo;t fit with the rest of your playthrough. Zelda and stealth are no strangers, but combine it with replaying the same dungeon repeatedly with a time limit and my patience wanes.</p>
+
+<p>Lastly, the pointless but required side tracking to advance the plot. The best example so far is what is needed to access the Goron dungeon. You must talk with the leader who will only grant you access once you talk to every character on the island. OK, fine. Talking the leader again, you need to pass his quiz, with unrelated questions like &ldquo;How many children are on the island?&rdquo; and &ldquo;What&rsquo;s in this spot?&rdquo;</p>
+
+<p>Just let me save sage Tetra already! After getting 6 questions correct, you would think that you could now access the temple. You would be wrong. Instead of just walking directly to the right and into the dungeon, you need to play hide and seek with a kid first. He runs off to one side of the island where you must find him, then he runs to the temple entrance. I have no idea why that would be included in the game other than throwing one last frustration at the player for the hell if it.</p>
+
+<p>It is only because I&rsquo;m stubborn that I&rsquo;ve made it this far into the game, but any more crap like this and it&rsquo;s getting chucked out the window.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2013/05/20/you-should-be-ashamed-of-yourself/" rel="bookmark">You should be ashamed of yourself</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2013-05-20 11:57:24 &#43;0000 &#43;0000">May 20, 2013</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>Computer Science, as a field, is relatively young. New advances are being created daily; both the theory and implementation are evolving at a rapid rate.</p>
+
+<p>The tools we use, both hardware and software, are also changing. Not too long ago everyone programmed with 80 character wide screens. Now, wide 1080p screens may be considered too small.</p>
+
+<p>Looking back at how we worked a mere 10 years ago is both frustrating and embarrassing. Similarly, looking back at your own work from only one year ago should make you wonder what you were thinking at the time. More than once, I&rsquo;ve reviewed old code of mine and was unable to recognize the style.</p>
+
+<p>If you look at your previous work and say, &ldquo;I wouldn&rsquo;t change a thing&rdquo;, then you haven&rsquo;t grown as a programmer. The field itself will leave you behind as you stagnate in your ways.</p>
+
+<p>Instead, you need to get outside your box and learn new techniques. Learning a new language, even only the basics, will let you see your own work in new ways.</p>
+
+<p>Look at yourself one year ago and be embarrassed. You&rsquo;ve grown since then and learned new ways to solve problems. Be proud of that embarrassment, but don&rsquo;t be too proud. You&rsquo;ll be embarrassing yourself a year from now.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2012/05/28/setting-up-spring-batch/" rel="bookmark">Setting Up Spring Batch</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2012-05-29 02:48:49 &#43;0000 &#43;0000">May 29, 2012</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						
+
+<p>Lets do the setup work that we&rsquo;ll rely on for the rest of the project. We want to configure Spring Batch&rsquo;s database, configure logging and create a simple reader and writer. All code available on the Google Code project page for <a href="http://code.google.com/p/glextensions/" title="GLExtensions on Google Code">GLExtensions</a>.</p>
+
+<h2 id="spring-batch-database">Spring Batch Database</h2>
+
+<p>The database used by Spring Batch is very handy. It allows for restarting jobs after failure, logging of job progress and real time statistics via the Spring Batch Admin Console. There is also the option to use a Map based repository instead which allows for in-memory job runs, but lacks the advantages of the database repository. A third option is to use an in-memory database setup, no advantages from an actual database setup, but it will allow us to switch to a real database easier in the future. This is the setup that Spring Tool Suite gives us when selecting a Spring Batch project template.</p>
+
+<p>First, the repository setup that will configure HQLDB as the Spring Batch repo. The following properties file will configure the database with the Spring Batch schema:</p>
+
+<blockquote>
+<p>batch.properties</p>
+</blockquote>
+
+<pre><code>batch.jdbc.driver=org.hsqldb.jdbcDriver
+batch.jdbc.url=jdbc:hsqldb:mem:testdb;sql.enforce_strict_size=true
+batch.jdbc.user=sa
+batch.jdbc.password=
+batch.schema=
+batch.schema.script=classpath:/org/springframework/batch/core/schema-hsqldb.sql
+</code></pre>
+
+<p>The following beans file will set up the job repository, configure component scan and import the jobs configuration which will be discussed later:</p>
+
+<blockquote>
+<p>beans.xml</p>
+
+<pre><code> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+	xmlns:jdbc=&quot;http://www.springframework.org/schema/jdbc&quot;
+	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd&quot;&gt;
+
+	 &lt;context:property-placeholder location=&quot;classpath:batch.properties&quot; /&gt;
+	 &lt;context:component-scan base-package=&quot;com.bitwiseor&quot; /&gt;
+
+	 &lt;import resource=&quot;classpath:jobs.xml&quot;/&gt;
+	
+	 &lt;jdbc:initialize-database&gt;
+		 &lt;jdbc:script location=&quot;${batch.schema.script}&quot; /&gt;
+	 &lt;/jdbc:initialize-database&gt;
+ &lt;/beans&gt;
+</code></pre>
+</blockquote>
+
+<p>The rest of the database setup happens in code:</p>
+
+<blockquote>
+<p>BatchConfig.groovy</p>
+</blockquote>
+
+<pre><code>package com.bitwiseor.extensions.config
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+
+@Configuration
+class BatchConfig {
+	@Value('${batch.jdbc.driver}')
+	private def driverClassName
+
+	@Value('${batch.jdbc.url}')
+	private def driverUrl
+
+	@Value('${batch.jdbc.user}')
+	private def driverUsername
+
+	@Value('${batch.jdbc.password}')
+	private def driverPassword
+
+	@Autowired
+	@Qualifier(&quot;jobRepository&quot;)
+	def jobRepository
+
+	@Bean
+	def dataSource() {
+		BasicDataSource dataSource = new BasicDataSource()
+		dataSource.driverClassName = driverClassName
+		dataSource.url = driverUrl
+		dataSource.username = driverUsername
+		dataSource.password = driverPassword
+		return dataSource
+	}
+
+	@Bean
+	def jobLauncher() {
+		SimpleJobLauncher jobLauncher = new SimpleJobLauncher()
+		jobLauncher.jobRepository = jobRepository
+		return jobLauncher
+	}
+
+	@Bean
+	def transactionManager() {
+		return new DataSourceTransactionManager(dataSource())
+	}
+}
+</code></pre>
+
+<h2 id="logging-config">Logging Config</h2>
+
+<p>We also want logging to keep track of the work we&rsquo;ve done. Using SLF4J and Logback is easy enough. All we need is the Logback configuration:</p>
+
+<blockquote>
+<p>logback.xml</p>
+</blockquote>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;configuration&gt;
+     &lt;appender name=&quot;CONSOLE&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+         &lt;encoder&gt;
+             &lt;pattern&gt;%5p %-25logger{25} %m %n &lt;/pattern&gt;
+         &lt;/encoder&gt;
+     &lt;/appender&gt;
+
+     &lt;logger name=&quot;com.bitwiseor&quot;&gt;
+         &lt;level value=&quot;INFO&quot; /&gt;
+     &lt;/logger&gt;
+
+     &lt;logger name=&quot;org.springframework&quot;&gt;
+         &lt;level value=&quot;ERROR&quot; /&gt;
+     &lt;/logger&gt;
+
+     &lt;root&gt;
+         &lt;level value=&quot;INFO&quot; /&gt;
+         &lt;appender-ref ref=&quot;CONSOLE&quot; /&gt;
+     &lt;/root&gt;
+ &lt;/configuration&gt;
+</code></pre>
+
+<h2 id="job-configuration">Job Configuration</h2>
+
+<p>Now for the interesting piece: job configuration. Spring Batch has an easy pattern that can be followed by most batch applications: read, process, write. The ItemReader interface has a single method to read an item, the ItemProcessor interface converts the read item into a writable item, and the ItemWriter interface simply writes a batch of items out to wherever it needs to. For the sample job to make sure everything is running correctly, we&rsquo;ll write an ItemReader to read files from a directory, and an ItemWriter that simply writes the item to the info log.</p>
+
+<p>First, the ItemReader. The interface has a single method call that must return an object. Once there are no more objects to read, it returns null. DirectoryItemReader will get an injected directory, then create an iterator once the bean is instantiated. The simple read call will return a file in the directory until there are no files using the iterator. Easy enough.</p>
+
+<blockquote>
+<p>DirectoryItemReader.groovy</p>
+</blockquote>
+
+<pre><code>package com.bitwiseor.extensions.batch
+
+import org.springframework.batch.item.ItemReader
+import org.springframework.beans.factory.InitializingBean
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
+
+@Component
+class DirectoryItemReader implements ItemReader &lt;File&gt;, InitializingBean {
+	@Value('D:/code/glextensions') // hard coded for simplicity
+	File directory
+	private Iterator &lt;File&gt; iterator;
+	
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		assert directory.isDirectory()
+		this.iterator = Arrays.asList(directory.listFiles()).iterator()
+	}
+	
+	@Override
+	File read() {
+		return iterator.hasNext()? iterator.next() : null
+	}
+}
+</code></pre>
+
+<p>And then the ItemWriter. The LoggingItemWriter simply logs each item out as an info level log using SLF4J. Groovy makes this stupidly simple.</p>
+
+<blockquote>
+<p>LoggingItemWriter.groovy</p>
+</blockquote>
+
+<pre><code>package com.bitwiseor.extensions.batch
+
+import groovy.util.logging.Slf4j
+
+import java.util.List;
+
+import org.springframework.batch.item.ItemWriter
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Component
+public class LoggingItemWriter implements ItemWriter {
+	@Override
+	void write(List items) {
+		items.each{ log.info it.toString() }
+	}
+}
+</code></pre>
+
+<p>Lastly, we need our job XML configuration. The job simply defines the reader and writer and executes in batches of 10.</p>
+
+<blockquote>
+<p>jobs.xml</p>
+</blockquote>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+ &lt;beans:beans xmlns:beans=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xmlns=&quot;http://www.springframework.org/schema/batch&quot;
+	xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-2.1.xsd&quot;&gt;
+
+	 &lt;job-repository id=&quot;jobRepository&quot; /&gt;
+	
+	 &lt;job id=&quot;sampleJob&quot;&gt;
+		 &lt;step id=&quot;readDir&quot;&gt;
+			 &lt;tasklet&gt;
+				 &lt;chunk reader=&quot;directoryItemReader&quot; writer=&quot;loggingItemWriter&quot; commit-interval=&quot;10&quot;/&gt;
+			 &lt;/tasklet&gt;
+		 &lt;/step&gt;
+	 &lt;/job&gt;
+ &lt;/beans:beans&gt;
+</code></pre>
+
+<h2 id="build-file">Build File</h2>
+
+<p>In order to build and run everything, we&rsquo;ll use gradle, a Groovy based build tool. The following build file will collect all our dependencies and setup a test script to run the sample job.</p>
+
+<blockquote>
+<p>build.gradle</p>
+</blockquote>
+
+<pre><code>apply plugin:'groovy'
+apply plugin:'eclipse'
+apply plugin:'application'
+
+repositories {
+	mavenCentral()
+}
+
+def springFrameworkVersion = '3.0.6.RELEASE'
+def springBatchVersion = '2.1.7.RELEASE'
+def slf4jVersion = '1.6.4'
+def logbackVersion = '1.0.3'
+
+mainClassName = 'org.springframework.batch.core.launch.support.CommandLineJobRunner'
+run {
+    args = ['classpath:/beans.xml', 'sampleJob']
+}
+
+dependencies {
+	compile gradleApi()
+	groovy localGroovy()
+	
+	compile &quot;org.springframework:spring-jdbc:${springFrameworkVersion}&quot;
+	compile &quot;org.springframework:spring-context:${springFrameworkVersion}&quot;
+	compile &quot;cglib:cglib-nodep:2.2&quot;
+	compile &quot;org.springframework.batch:spring-batch-core:${springBatchVersion}&quot;
+	compile &quot;commons-dbcp:commons-dbcp:1.2.2&quot;
+	compile &quot;hsqldb:hsqldb:1.8.0.7&quot;	
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.0-rc-3'
+}
+</code></pre>
+
+<p>Running this with <code>gradlew install run</code> will print out the files in our directory as INFO messages as expected. Now we can get to work creating the actual job that will convert extension specifications into wiki documents.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<article class="mr-loop-item post type-post hentry clearfix">
+			
+			<div class="mr-loop-content clearfix">
+				<header class="mr-loop-header">
+					<h3 class="entry-title mr-loop-title">
+						<a href="/post/2012/05/24/glextension-registry/" rel="bookmark">GLExtension Registry</a>
+					</h3>
+					<div class="mr-meta mr-loop-meta">
+						<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+						<time class="mr-meta-date updated" datetime="2012-05-25 01:32:48 &#43;0000 &#43;0000">May 25, 2012</time>
+					</div>
+				</header>
+				<div class="mr-loop-excerpt">
+					<div class="entry-content clearfix">
+						<p>Well, after that sad Heroku mess, I&rsquo;ve given up temporarily on cloud experiments (although, I will probably look into <a title="Cloud Foundry" href="http://www.cloudfoundry.com/">Cloud Foundry</a> once I get interested again). Instead, lets take a look at Spring Batch in order to make OpenGL developers lives a little easier.</p>
+
+<p>First, some history. OpenGL is a lovely, standardized graphics library implemented on most major operating systems. One of the strength of OpenGL is the large partnership with graphics card manufacturers and the abilty to create extensions. There are literally hundreds of extensions that have been created and defined in the <a title="OpenGL Extension Registry" href="http://www.opengl.org/registry/">OpenGL Extension Registry</a>.</p>
+
+<p>Manufacturers come up with new ideas, create an extension and implement it in their drivers. If the extensions become especially useful, other vendors adopt the extension and eventually it becomes part of the specification for OpenGL. This is how programmable hardware in graphics cards started in OpenGL and now is required if the card wants to support the latest standards.</p>
+
+<p>So, the registry is useful for developers as it defines the latest features available and how they are implemented, but the specifications are just sitting online in plain text. Often, extensions build upon other extensions, requiring developers to hunt and peck for the information they need.</p>
+
+<p>This lead me to create the <a title="GLExtensions" href="http://code.google.com/p/glextensions/">OpenGL Extension Wiki</a> on Google Code. The plan was to create a listing of all the extensions in an easily navigable way. Even <a href="http://www.opengl.org/wiki/OpenGL_Extensions">OpenGL admits</a> that &ldquo;[r]eading an OpenGL extension is somewhat complicated.&rdquo; It doesn&rsquo;t help that they exist as separate text files online. I wanted to create an alternate to the registry that seemed more cohesive, but doing this by hand was painful, so I gave up and the project was left to rot.</p>
+
+<p>Four years later, I was looking through Google&rsquo;s analytics and noticed that the project is actually getting hits. Approximately ten a day - not overwhelming, but more than I would expect as it isn&rsquo;t in a very usable state.</p>
+
+<p>This got me thinking, is there any way to automate the creation of wiki docs? There must be. The specification documents are fairly consistent and somewhat well formatted. The trick will be parsing it into a usable form. After pondering this for a little while, I&rsquo;ve come up with the following design:</p>
+
+<p>Spring Batch is an easy to use framework that takes a  lot of the work out of doing repetitive tasks. Specifically, it can be used to drive nearly any repetitive process and inclodes plenty of hooks for logging and error handling.</p>
+
+<p>Once we download all the extension documents, we open each one up, parse it into a usable object representing each of the sections, then write out the document with wiki formatting. Since Google Code stores the wiki in an SVN repo, publishing is as easy as committing the changes.</p>
+
+<p>The difficult part will be parsing and formatting, but that can be dealt with on a step-by-step basis. First, we need to get Spring Batch configured, which is where we&rsquo;ll go next.</p>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		
+
+		
+<div class="mr-loop-pagination clearfix">
+	
+	<a class="page-numbers" href="/post/">«</a>
+	
+	<span class="page-numbers current">2/3</span>
+	
+	<a class="page-numbers" href="/post/page/3/">»</a>
+	
+</div>
+
+	</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

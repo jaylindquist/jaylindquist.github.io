@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLExtension Registry</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="GLExtension Registry" />
+<meta property="og:description" content="Well, after that sad Heroku mess, I&rsquo;ve given up temporarily on cloud experiments (although, I will probably look into Cloud Foundry once I get interested again). Instead, lets take a look at Spring Batch in order to make OpenGL developers lives a little easier.
+First, some history. OpenGL is a lovely, standardized graphics library implemented on most major operating systems. One of the strength of OpenGL is the large partnership with graphics card manufacturers and the abilty to create extensions." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2012/05/24/glextension-registry/" />
+
+
+<meta property="og:updated_time" content="2012-05-25T01:32:48&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">GLExtension Registry</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2012-05-25 01:32:48 &#43;0000 &#43;0000">May 25, 2012</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			<p>Well, after that sad Heroku mess, I&rsquo;ve given up temporarily on cloud experiments (although, I will probably look into <a title="Cloud Foundry" href="http://www.cloudfoundry.com/">Cloud Foundry</a> once I get interested again). Instead, lets take a look at Spring Batch in order to make OpenGL developers lives a little easier.</p>
+
+<p>First, some history. OpenGL is a lovely, standardized graphics library implemented on most major operating systems. One of the strength of OpenGL is the large partnership with graphics card manufacturers and the abilty to create extensions. There are literally hundreds of extensions that have been created and defined in the <a title="OpenGL Extension Registry" href="http://www.opengl.org/registry/">OpenGL Extension Registry</a>.</p>
+
+<p>Manufacturers come up with new ideas, create an extension and implement it in their drivers. If the extensions become especially useful, other vendors adopt the extension and eventually it becomes part of the specification for OpenGL. This is how programmable hardware in graphics cards started in OpenGL and now is required if the card wants to support the latest standards.</p>
+
+<p>So, the registry is useful for developers as it defines the latest features available and how they are implemented, but the specifications are just sitting online in plain text. Often, extensions build upon other extensions, requiring developers to hunt and peck for the information they need.</p>
+
+<p>This lead me to create the <a title="GLExtensions" href="http://code.google.com/p/glextensions/">OpenGL Extension Wiki</a> on Google Code. The plan was to create a listing of all the extensions in an easily navigable way. Even <a href="http://www.opengl.org/wiki/OpenGL_Extensions">OpenGL admits</a> that &ldquo;[r]eading an OpenGL extension is somewhat complicated.&rdquo; It doesn&rsquo;t help that they exist as separate text files online. I wanted to create an alternate to the registry that seemed more cohesive, but doing this by hand was painful, so I gave up and the project was left to rot.</p>
+
+<p>Four years later, I was looking through Google&rsquo;s analytics and noticed that the project is actually getting hits. Approximately ten a day - not overwhelming, but more than I would expect as it isn&rsquo;t in a very usable state.</p>
+
+<p>This got me thinking, is there any way to automate the creation of wiki docs? There must be. The specification documents are fairly consistent and somewhat well formatted. The trick will be parsing it into a usable form. After pondering this for a little while, I&rsquo;ve come up with the following design:</p>
+
+<p>Spring Batch is an easy to use framework that takes a  lot of the work out of doing repetitive tasks. Specifically, it can be used to drive nearly any repetitive process and inclodes plenty of hooks for logging and error handling.</p>
+
+<p>Once we download all the extension documents, we open each one up, parse it into a usable object representing each of the sections, then write out the document with wiki formatting. Since Google Code stores the wiki in an SVN repo, publishing is as easy as committing the changes.</p>
+
+<p>The difficult part will be parsing and formatting, but that can be dealt with on a step-by-step basis. First, we need to get Spring Batch configured, which is where we&rsquo;ll go next.</p>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2012/05/28/setting-up-spring-batch/" rel="prev"><span>«Previous</span><p>Setting Up Spring Batch</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2012/05/14/oh-heroku-why/" rel="next"><span>Next»</span><p>Oh Heroku, Why?</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>

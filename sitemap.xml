@@ -2,18 +2,148 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jaylindquist.github.io/post/shaving-yaks-for-docker/</loc>
+    <loc>/post/2017/01/06/shaving-yaks-for-docker/</loc>
     <lastmod>2017-01-06T20:54:58-06:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jaylindquist.github.io/</loc>
+    <loc>/post/2013/09/25/adding-static-content-to-spring-boot-mvc/</loc>
+    <lastmod>2013-09-25T21:46:54+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/09/20/creating-test-services-with-spring-boot/</loc>
+    <lastmod>2013-09-21T03:39:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/08/24/do-not-fear-the-computer/</loc>
+    <lastmod>2013-08-25T03:40:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/08/21/vulnerabilies-of-good-intentions/</loc>
+    <lastmod>2013-08-22T04:25:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/08/03/lets-set-up-ember-js/</loc>
+    <lastmod>2013-08-04T04:12:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/07/08/always-be-refactoring/</loc>
+    <lastmod>2013-07-08T16:26:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/06/26/the-migration-problem/</loc>
+    <lastmod>2013-06-26T11:45:01+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/</loc>
+    <lastmod>2013-06-20T04:15:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/06/11/kh3-on-ps4/</loc>
+    <lastmod>2013-06-11T12:03:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/06/02/lets-set-up-spring-mvc/</loc>
+    <lastmod>2013-06-03T03:15:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/31/security-and-usability/</loc>
+    <lastmod>2013-05-31T11:48:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/29/lets-have-a-little-talk-about-usability/</loc>
+    <lastmod>2013-05-30T03:37:36+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/28/there-is-no-such-thing-as-two-2/</loc>
+    <lastmod>2013-05-28T12:14:50+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/23/spammers-be-spamming/</loc>
+    <lastmod>2013-05-23T11:37:22+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/22/the-new-console-wars/</loc>
+    <lastmod>2013-05-22T11:57:59+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/21/zeldas-phantom-menace/</loc>
+    <lastmod>2013-05-21T12:05:17+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2013/05/20/you-should-be-ashamed-of-yourself/</loc>
+    <lastmod>2013-05-20T11:57:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/05/28/setting-up-spring-batch/</loc>
+    <lastmod>2012-05-29T02:48:49+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/05/24/glextension-registry/</loc>
+    <lastmod>2012-05-25T01:32:48+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/05/14/oh-heroku-why/</loc>
+    <lastmod>2012-05-15T03:12:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/05/09/let-set-up-heroku/</loc>
+    <lastmod>2012-05-10T02:50:43+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/05/08/which-cloud-provider-should-i-use/</loc>
+    <lastmod>2012-05-09T02:49:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/01/25/in-search-of-vulnerabilities/</loc>
+    <lastmod>2012-01-26T02:39:16+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2012/01/13/ffviii/</loc>
+    <lastmod>2012-01-14T03:29:44+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2011/12/29/kinect-is-creeping-me-out/</loc>
+    <lastmod>2011-12-30T04:16:59+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/2011/12/29/how-embarrassing/</loc>
+    <lastmod>2011-12-30T03:53:48+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
     <lastmod>2017-01-06T20:54:58-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://jaylindquist.github.io/post/</loc>
+    <loc>/post/</loc>
     <lastmod>2017-01-06T20:54:58-06:00</lastmod>
     <priority>0</priority>
   </url>

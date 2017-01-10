@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lets set up Spring MVC</title>
+
+<meta name="generator" content="Hugo 0.18.1" />
+<meta property="og:title" content="Lets set up Spring MVC" />
+<meta property="og:description" content="Welcome to the Modern Web, here&rsquo;s your library. Spring MVC comes standard with the monolith that is the Spring Framework. It certainly makes creating a web app easy&hellip; once it&rsquo;s set up. Getting started, though, is the difficult part.
+This isn&rsquo;t meant to be a very educational article, only an instructive article. If you are unfamiliar with the concepts listed, google is your friend. There are a lot of moving pieces to this, so lets dive in." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2013/06/02/lets-set-up-spring-mvc/" />
+
+
+<meta property="og:updated_time" content="2013-06-03T03:15:24&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/scripts.js"></script>
+<!--[if lt IE 9]>
+	<script src="/js/css3-mediaqueries.js"></script>
+<![endif]-->
+</head>
+<body class="home blog mr-left-sb mr-mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+	<div class="mr-container mr-container-outer">
+		<div class="mr-header-mobile-nav clearfix"></div>
+			<header class="mr-header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+				<div class="mr-container mr-container-inner mr-row clearfix">
+					<div class="mr-custom-header clearfix">
+						<div class="mr-site-identity">
+							<div class="mr-site-logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+								<div class="mr-header-text">
+									<a class="mr-header-text-link" href="/" title="BitwiseOR" rel="home">
+										<h1 class="mr-header-title">BitwiseOR</h1>
+										<h2 class="mr-header-tagline">Like || but with bits</h2>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mr-main-nav-wrap">
+					<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+	<ul class="menu__list">
+		
+	</ul>
+</nav>
+				</div>
+			</header>
+		<div class="mr-wrapper clearfix">
+
+
+<div class="main-content mr-content" role="main" itemprop="mainContentOfPage">
+	<article class="post">
+		<header class="entry-header clearfix">
+			<h1 class="entry-title">Lets set up Spring MVC</h1>
+			<p class="mr-meta entry-meta">
+				<svg class="icon icon-time" height="14" viewBox="0 0 16 16" width="14" xmlns="http://www.w3.org/2000/svg"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+				<time class="entry-meta-date updated" datetime="2013-06-03 03:15:24 &#43;0000 &#43;0000">June 03, 2013</time>
+			</p>
+		</header>
+		<div class="entry-content clearfix">
+			
+			
+
+<p>Welcome to the <a href="http://www.springsource.org/features/modern-web">Modern Web</a>, here&rsquo;s your library. Spring MVC comes standard with the monolith that is the Spring Framework. It certainly makes creating a web app easy&hellip; once it&rsquo;s set up. Getting started, though, is the difficult part.</p>
+
+<p>This isn&rsquo;t meant to be a very educational article, only an instructive article. If you are unfamiliar with the concepts listed, google is your friend. There are a lot of moving pieces to this, so lets dive in.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>What do we want to accomplish? We want to set up Spring MVC to handle all *.html files, not interact with resources such as javascript and CSS files, forward rendering to JSP files under WEB-INF/jsp and use Logback for logging.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>There&rsquo;s one downside for Spring, a lot of jars are involved. To accomplish the above we need the following jars:</p>
+
+<pre><code>aopalliance-1.0.jar
+commons-logging-1.1.3.jar
+groovy-all-2.1.1.jar
+jcl-over-slf4j-1.7.5.jar
+jstl-1.2.jar
+logback-classic-1.0.13.jar
+logback-core-1.0.13.jar
+slf4j-api-1.7.5.jar
+spring-aop-3.2.3.RELEASE.jar
+spring-beans-3.2.3.RELEASE.jar
+spring-context-3.2.3.RELEASE.jar
+spring-core-3.2.3.RELEASE.jar
+spring-expression-3.2.3.RELEASE.jar
+spring-web-3.2.3.RELEASE.jar
+spring-webmvc-3.2.3.RELEASE.jar
+</code></pre>
+
+<p>Your versions may vary</p>
+
+<h2 id="file-structure">File Structure</h2>
+
+<p>We will order our files in the following directory structure:</p>
+
+<pre><code>\---src
+    +---main
+    |   +---groovy
+    |   |   \---com
+    |   |       \---mycom
+    |   |           \---&lt;controller&gt;.groovy
+    |   \---resources
+    |       \---logback.xml
+    \---webapp
+        +---css
+        +---images
+        +---js
+        \---WEB-INF
+            +---web.xml
+            +---spring-servlet.xml
+            \---jsp
+                \---&lt;view&gt;.jsp
+</code></pre>
+
+<p><code>&lt;controller&gt;.groovy</code> will hold the controller code that will load the model and forward to the <code>&lt;view&gt;.jsp</code> under <code>WEB-INF/jsp</code>. <code>logback.xml</code> will configure our logging to print out all the debug statements to make sure the app is working correctly. <code>css</code>, <code>images</code> and <code>js</code> hold the appropriate resource files. <code>spring-servlet.xml</code> configures Spring MVC to find our controllers and views. And <code>web.xml</code> is the standard deployment descriptor.</p>
+
+<h2 id="web-xml">web.xml</h2>
+
+<p>The deployment descriptor sets up 4 items: the welcome files list, set to index.html, <a title="defaultHtmlEscape" href="http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#spring.tld.htmlEscape">default HTML escaping</a> to prevent XSS attacks, the <a title="Spring MVC DispatcherServlet" href="http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-servlet">DispatcherServlet</a>, and which files Spring MVC will handle.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot; version=&quot;2.5&quot;&gt;
+  &lt;welcome-file-list&gt;
+    &lt;welcome-file&gt;index.html&lt;/welcome-file&gt;
+  &lt;/welcome-file-list&gt;
+
+  &lt;!-- Escape HTML output by default --&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;defaultHtmlEscape&lt;/param-name&gt;
+    &lt;param-value&gt;true&lt;/param-value&gt;
+  &lt;/context-param&gt;
+
+  &lt;!-- This servlet named &quot;spring&quot; will make Spring MVC look for
+       spring-servlet.xml under WEB-INF --&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;spring&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;/servlet&gt;
+
+  &lt;!-- Map Spring MVC to all .html files --&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;spring&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.html&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+
+<h2 id="spring-servlet-xml">spring-servlet.xml</h2>
+
+<p>The *-servlet.xml file is automatically loaded by the DispatcherServlet based on the servlet name. In this case, Spring will look for spring-servlet.xml. We need to configure this file to do the following: scan our source code for controllers, note that Spring MVC will be driven by annotations (not necessarily needed, but will prevent issues in the future) and tell Spring MVC to resolves views in our WEB-INF/jsp folder.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+  xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+  xsi:schemaLocation=&quot;
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;
+
+  &lt;!-- All annotated Spring classes under this package will be picked up --&gt;
+  &lt;context:component-scan base-package=&quot;com.mycom&quot;/&gt;
+  &lt;!-- Drive Spring MVC with annotations --&gt;
+  &lt;mvc:annotation-driven /&gt;
+
+  &lt;!-- Any view returned by the app will be resolved to WEB-INF/lib/[view].jsp --&gt;
+  &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;
+    &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot;/&gt;
+    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+
+<h2 id="resources">Resources</h2>
+
+<p>Since Spring MVC is mapped to *.html, only html files will be picked up. So any images, CSS and javascript can be placed in their respective folders and be picked up with out being processed.</p>
+
+<h2 id="controllers">Controllers</h2>
+
+<p>Any groovy files with the @Controller annotation will be picked up Spring. The controller needs to hold methods that map to a specific URL (an html file, in this case). It will then need return a Model and or View. The string representing the view will be mapped to the corresponding JSP file under WEB-INF/jsp.</p>
+
+<pre><code>package com.mycom.controller
+
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.servlet.ModelAndView
+
+// Ensure Spring picks this class up as a controller
+@Controller
+class DefaultController {
+  // map index.html to WEB-INF/jsp/index.jsp
+  @RequestMapping('/index.html')
+  def index() {
+    return 'index'
+  }
+
+  // map search.html to WEB-INF/jsp/search.jsp with a SearchResults as the model
+  @RequestMapping('/search.html')
+  def search() {
+    return new ModelAndView('search', 'results', new SearchResults(...))
+  }
+}
+</code></pre>
+
+<h2 id="views">Views</h2>
+
+<p>Our views a simple JSP pages that get resolved to WEB-INF/jsp/<view-name>.jsp. Since this is just an article about setup, you will need to see the <a title="Spring MVC views" href="http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-viewresolver">documentation </a>for more information.</p>
+
+<h2 id="logback-xml">logback.xml</h2>
+
+<p>Lastly we configure our logging to print out all our debug statements, letting us know if everything is working correctly.</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;configuration debug=&quot;true&quot;&gt;
+  &lt;appender name=&quot;STDOUT&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;
+        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+      &lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;logger name=&quot;org.springframework&quot; level=&quot;DEBUG&quot;/&gt;
+  &lt;root level=&quot;DEBUG&quot;&gt;
+    &lt;appender-ref ref=&quot;STDOUT&quot; /&gt;
+  &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+		</div>
+		
+	</article>
+	
+<div class="mr-author-box clearfix">
+	<figure class="mr-author-box-avatar">
+		<img alt="Jay Lindquist avatar" src="/images/avatar.jpg" class="avatar avatar-90 photo" height="90" width="90">
+	</figure>
+	<div class="mr-author-box-header">
+		<span class="mr-author-box-name">About Jay Lindquist</span>
+	</div>
+	<div class="mr-author-box-bio">
+		Developer and wonderer
+	</div>
+</div>
+
+	
+
+	<nav class="mr-post-nav mr-row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-prev">
+			<a href="/post/2013/06/11/kh3-on-ps4/" rel="prev"><span>«Previous</span><p>KH3 on PS4</p></a>
+		</div>
+		
+		
+		<div class="mr-col-1-2 mr-post-nav-item mr-post-nav-next">
+			<a href="/post/2013/05/31/security-and-usability/" rel="next"><span>Next»</span><p>Security and Usability</p></a>
+		</div>
+		
+	</nav>
+
+
+	
+</div>
+
+<aside class="mr-sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="mr-widget widget_search">
+	<form class="search-form" role="search" method="get" action="//google.com/search">
+		<label>
+			<span class="screen-reader-text">Search for:</span>
+			<input type="search" class="search-field" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="search-submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="/" />
+	</form>
+</div>
+
+	
+<div class="mr-widget widget_recent_entries">
+	<h4 class="mr-widget-title"><span class="mr-widget-title-inner">Recent Posts</span></h4>
+	<ul>
+		
+		<li><a href="/post/2017/01/06/shaving-yaks-for-docker/">Shaving Yaks for Docker</a></li>
+		
+		<li><a href="/post/2013/09/25/adding-static-content-to-spring-boot-mvc/">Adding Static Content To Spring Boot MVC</a></li>
+		
+		<li><a href="/post/2013/09/20/creating-test-services-with-spring-boot/">Creating Test Services with Spring Boot</a></li>
+		
+		<li><a href="/post/2013/08/24/do-not-fear-the-computer/">Do Not Fear the Computer</a></li>
+		
+		<li><a href="/post/2013/08/21/vulnerabilies-of-good-intentions/">Vulnerabilies of Good Intentions</a></li>
+		
+		<li><a href="/post/2013/08/03/lets-set-up-ember-js/">Lets set up Ember.js</a></li>
+		
+		<li><a href="/post/2013/07/08/always-be-refactoring/">Always Be Refactoring</a></li>
+		
+		<li><a href="/post/2013/06/26/the-migration-problem/">The Migration Problem</a></li>
+		
+		<li><a href="/post/2013/06/19/creating-a-reusable-url-with-spring-resttemplate/">Creating a Reusable URL with Spring RestTemplate</a></li>
+		
+		<li><a href="/post/2013/06/11/kh3-on-ps4/">KH3 on PS4</a></li>
+		
+	</ul>
+</div>
+
+
+	
+
+
+
+
+	
+
+
+
+
+</aside>
+	</div>
+		<div class="mr-copyright-wrap">
+			<div class="mr-container mr-container-inner clearfix">
+				<p class="mr-copyright">&copy; 2017 BitwiseOR. Based on <a href="//wordpress.org/themes/mh-magazine-lite/" target="_blank" rel="nofollow noopener noreferrer">MH Magazine lite</a>.</p>
+			</div>
+		</div>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+
+</body>
+</html>
