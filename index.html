@@ -25,6 +25,7 @@
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="alternate" type="application/rss+xml" title="BitwiseOR Feed" href="/index.xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
 <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="/js/scripts.js"></script>
 <!--[if lt IE 9]>
@@ -228,7 +229,7 @@ class ThisWillActuallyRun {
 
 <p>Something that I always appreciate, is a gradle plugin, and Spring Boot comes through. The following build.gradle loads in Spring Boot, a few more dependencies to support Groovy, an in memory database and JSON parsing for the service, then adds a <code>run</code> command to make life easier.</p>
 
-<pre><code>buildscript {
+<pre><code class="language-groovy">buildscript {
     repositories {
         mavenCentral()
         maven {
@@ -282,7 +283,7 @@ task wrapper(type: Wrapper) {
 
 <p>From the build file above, the run task simply executes the main class <code>com.mycom.App</code>. This class will tell Spring Boot how to run our app and set up all our autowiring needs.</p>
 
-<pre><code>package com.mycom 
+<pre><code class="language-java">package com.mycom 
 
 import org.springframework.boot.*
 import org.springframework.boot.autoconfigure.*
@@ -330,7 +331,7 @@ spring.database.schema=classpath*:schema-hsqldb.sql
 
 <p>Our schema creates the tables and sample data in one file:</p>
 
-<pre><code>CREATE TABLE franchises (
+<pre><code class="language-sql">CREATE TABLE franchises (
     id BIGINT NOT NULL PRIMARY KEY,
     title VARCHAR(255)
 );
@@ -373,7 +374,7 @@ INSERT INTO games
 
 <p>For Frachises:</p>
 
-<pre><code>package com.mycom
+<pre><code class="language-java">package com.mycom
 
 import javax.sql.DataSource
 
@@ -418,7 +419,7 @@ class Franchise {
 
 <p>And similarly for Games:</p>
 
-<pre><code>package com.mycom
+<pre><code class="language-java">package com.mycom
 
 import javax.sql.DataSource
 
@@ -611,7 +612,7 @@ class Game {
 
 <p>Since we aren&rsquo;t using any styles, out base HTML page is a bit bare, but we still need it:</p>
 
-<pre><code>&lt;!DOCTYPE html&gt;
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;utf-8&quot; /&gt;
@@ -649,7 +650,7 @@ class Game {
 
 <p>We start with the Application. This is easy enough:</p>
 
-<pre><code>App = Ember.Application.create({});
+<pre><code class="language-javascript">App = Ember.Application.create({});
 </code></pre>
 
 <h3 id="model">Model</h3>
@@ -658,7 +659,7 @@ class Game {
 
 <p>All you really need to know is that the methods on the model exist and do what they say:</p>
 
-<pre><code>Store = {
+<pre><code class="language-javascript">Store = {
     franchises: Ember.A(),
     defaultFranchise: function() {...},
     get: function(id) {...},
@@ -690,7 +691,7 @@ App.GameStore.init();
 
 <p>The router will define most of our application. When creating a router, you define the routes with names and paths. Once you have a name of a route, Ember will automatically look for routes and controllers with specific names. So, a route named <code>franchise</code> will have a <code>FranchiseRoute</code> and a <code>FranchiseController</code>. See the naming conventions for more information.</p>
 
-<pre><code>App.Router.map(function() {
+<pre><code class="language-javascript">App.Router.map(function() {
     this.resource('franchise', { path:'/franchise/:franchise_id'}, function() {
         this.resource('game', { path: '/game/:game_id' });
     });
@@ -712,7 +713,7 @@ App.GameStore.init();
 
 <p>Translating this to code, we get:</p>
 
-<pre><code>App.ApplicationRoute = Ember.Route.extend({
+<pre><code class="language-javascript">App.ApplicationRoute = Ember.Route.extend({
     setupController: function(applicationController) {
         applicationController.set('franchises', App.GameStore.franchises);
     }
@@ -751,7 +752,7 @@ App.GameRoute = Ember.Route.extend({
 <li><code>game</code> - similarly, this template is loaded as the franchise&rsquo;s <code>{{outlet}}</code> and will have the implicit <code>game</code> model.</li>
 </ul>
 
-<pre><code>&lt;script type=&quot;text/x-handlebars&quot;&gt;
+<pre><code class="language-html">&lt;script type=&quot;text/x-handlebars&quot;&gt;
     &lt;h1&gt;Franchises&lt;/h1&gt;
     &lt;ul&gt;
         {{#each franchise in franchises}}
@@ -894,7 +895,7 @@ App.GameRoute = Ember.Route.extend({
 
 <p>This is a fairly straight forward implementation which I have found to be very useful.</p>
 
-<pre><code>class RestTemplateUtil {
+<pre><code class="language-java">class RestTemplateUtil {
     private String baseUrl
     private String key
     private String format
@@ -925,7 +926,7 @@ App.GameRoute = Ember.Route.extend({
 
 <p>Once configured, the developer builds the template from the API path and a Set of parameter names. This Set is easily constructed from a Map of parameters and their values used directly by the RestTemplate.</p>
 
-<pre><code>def templateUtil = new RestTemplateUtil()
+<pre><code class="language-java">def templateUtil = new RestTemplateUtil()
 templateUtil.baseUrl = 'http://api.example.com'
 templateUtil.key = 'myKey'
 templateUtil.format = 'json'
@@ -1066,6 +1067,8 @@ println result
 		navClass: "menu--collapse",
 	});
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </body>
 </html>

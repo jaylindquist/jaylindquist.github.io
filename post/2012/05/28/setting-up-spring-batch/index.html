@@ -27,6 +27,7 @@ Spring Batch Database The database used by Spring Batch is very handy. It allows
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
 <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="/js/scripts.js"></script>
 <!--[if lt IE 9]>
@@ -99,8 +100,9 @@ batch.schema.script=classpath:/org/springframework/batch/core/schema-hsqldb.sql
 
 <blockquote>
 <p>beans.xml</p>
+</blockquote>
 
-<pre><code> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code class="language-xml"> &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
  &lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
 	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
 	xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
@@ -119,7 +121,6 @@ batch.schema.script=classpath:/org/springframework/batch/core/schema-hsqldb.sql
 	 &lt;/jdbc:initialize-database&gt;
  &lt;/beans&gt;
 </code></pre>
-</blockquote>
 
 <p>The rest of the database setup happens in code:</p>
 
@@ -127,7 +128,7 @@ batch.schema.script=classpath:/org/springframework/batch/core/schema-hsqldb.sql
 <p>BatchConfig.groovy</p>
 </blockquote>
 
-<pre><code>package com.bitwiseor.extensions.config
+<pre><code class="language-java">package com.bitwiseor.extensions.config
 
 import javax.sql.DataSource;
 
@@ -192,7 +193,7 @@ class BatchConfig {
 <p>logback.xml</p>
 </blockquote>
 
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
  &lt;configuration&gt;
      &lt;appender name=&quot;CONSOLE&quot; class=&quot;ch.qos.logback.core.ConsoleAppender&quot;&gt;
          &lt;encoder&gt;
@@ -225,7 +226,7 @@ class BatchConfig {
 <p>DirectoryItemReader.groovy</p>
 </blockquote>
 
-<pre><code>package com.bitwiseor.extensions.batch
+<pre><code class="language-java">package com.bitwiseor.extensions.batch
 
 import org.springframework.batch.item.ItemReader
 import org.springframework.beans.factory.InitializingBean
@@ -257,7 +258,7 @@ class DirectoryItemReader implements ItemReader &lt;File&gt;, InitializingBean {
 <p>LoggingItemWriter.groovy</p>
 </blockquote>
 
-<pre><code>package com.bitwiseor.extensions.batch
+<pre><code class="language-java">package com.bitwiseor.extensions.batch
 
 import groovy.util.logging.Slf4j
 
@@ -282,7 +283,7 @@ public class LoggingItemWriter implements ItemWriter {
 <p>jobs.xml</p>
 </blockquote>
 
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
  &lt;beans:beans xmlns:beans=&quot;http://www.springframework.org/schema/beans&quot;
 	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
 	xmlns=&quot;http://www.springframework.org/schema/batch&quot;
@@ -309,7 +310,7 @@ public class LoggingItemWriter implements ItemWriter {
 <p>build.gradle</p>
 </blockquote>
 
-<pre><code>apply plugin:'groovy'
+<pre><code class="language-java">apply plugin:'groovy'
 apply plugin:'eclipse'
 apply plugin:'application'
 
@@ -447,6 +448,8 @@ task wrapper(type: Wrapper) {
 		navClass: "menu--collapse",
 	});
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </body>
 </html>

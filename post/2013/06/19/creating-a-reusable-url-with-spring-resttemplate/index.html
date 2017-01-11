@@ -28,6 +28,7 @@ For instance, a search template could look like: http://api." />
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
 <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="/js/scripts.js"></script>
 <!--[if lt IE 9]>
@@ -91,7 +92,7 @@ For instance, a search template could look like: http://api." />
 
 <p>This is a fairly straight forward implementation which I have found to be very useful.</p>
 
-<pre><code>class RestTemplateUtil {
+<pre><code class="language-java">class RestTemplateUtil {
     private String baseUrl
     private String key
     private String format
@@ -122,7 +123,7 @@ For instance, a search template could look like: http://api." />
 
 <p>Once configured, the developer builds the template from the API path and a Set of parameter names. This Set is easily constructed from a Map of parameters and their values used directly by the RestTemplate.</p>
 
-<pre><code>def templateUtil = new RestTemplateUtil()
+<pre><code class="language-java">def templateUtil = new RestTemplateUtil()
 templateUtil.baseUrl = 'http://api.example.com'
 templateUtil.key = 'myKey'
 templateUtil.format = 'json'
@@ -238,6 +239,8 @@ println result
 		navClass: "menu--collapse",
 	});
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </body>
 </html>

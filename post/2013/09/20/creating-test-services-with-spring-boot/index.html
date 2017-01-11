@@ -27,6 +27,7 @@ It also covers all the main Spring technologies: Spring MVC, Spring Batch, Sprin
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,600" type="text/css" media="all" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/default.min.css">
 <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
 <script type="text/javascript" src="/js/scripts.js"></script>
 <!--[if lt IE 9]>
@@ -99,7 +100,7 @@ class ThisWillActuallyRun {
 
 <p>Something that I always appreciate, is a gradle plugin, and Spring Boot comes through. The following build.gradle loads in Spring Boot, a few more dependencies to support Groovy, an in memory database and JSON parsing for the service, then adds a <code>run</code> command to make life easier.</p>
 
-<pre><code>buildscript {
+<pre><code class="language-groovy">buildscript {
     repositories {
         mavenCentral()
         maven {
@@ -153,7 +154,7 @@ task wrapper(type: Wrapper) {
 
 <p>From the build file above, the run task simply executes the main class <code>com.mycom.App</code>. This class will tell Spring Boot how to run our app and set up all our autowiring needs.</p>
 
-<pre><code>package com.mycom 
+<pre><code class="language-java">package com.mycom 
 
 import org.springframework.boot.*
 import org.springframework.boot.autoconfigure.*
@@ -201,7 +202,7 @@ spring.database.schema=classpath*:schema-hsqldb.sql
 
 <p>Our schema creates the tables and sample data in one file:</p>
 
-<pre><code>CREATE TABLE franchises (
+<pre><code class="language-sql">CREATE TABLE franchises (
     id BIGINT NOT NULL PRIMARY KEY,
     title VARCHAR(255)
 );
@@ -244,7 +245,7 @@ INSERT INTO games
 
 <p>For Frachises:</p>
 
-<pre><code>package com.mycom
+<pre><code class="language-java">package com.mycom
 
 import javax.sql.DataSource
 
@@ -289,7 +290,7 @@ class Franchise {
 
 <p>And similarly for Games:</p>
 
-<pre><code>package com.mycom
+<pre><code class="language-java">package com.mycom
 
 import javax.sql.DataSource
 
@@ -451,6 +452,8 @@ class Game {
 		navClass: "menu--collapse",
 	});
 </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 
 </body>
 </html>

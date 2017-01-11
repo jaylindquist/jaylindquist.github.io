@@ -143,7 +143,7 @@ class ThisWillActuallyRun {
 
 &lt;p&gt;Something that I always appreciate, is a gradle plugin, and Spring Boot comes through. The following build.gradle loads in Spring Boot, a few more dependencies to support Groovy, an in memory database and JSON parsing for the service, then adds a &lt;code&gt;run&lt;/code&gt; command to make life easier.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;buildscript {
+&lt;pre&gt;&lt;code class=&#34;language-groovy&#34;&gt;buildscript {
     repositories {
         mavenCentral()
         maven {
@@ -197,7 +197,7 @@ task wrapper(type: Wrapper) {
 
 &lt;p&gt;From the build file above, the run task simply executes the main class &lt;code&gt;com.mycom.App&lt;/code&gt;. This class will tell Spring Boot how to run our app and set up all our autowiring needs.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;package com.mycom 
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package com.mycom 
 
 import org.springframework.boot.*
 import org.springframework.boot.autoconfigure.*
@@ -245,7 +245,7 @@ spring.database.schema=classpath*:schema-hsqldb.sql
 
 &lt;p&gt;Our schema creates the tables and sample data in one file:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;CREATE TABLE franchises (
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;CREATE TABLE franchises (
     id BIGINT NOT NULL PRIMARY KEY,
     title VARCHAR(255)
 );
@@ -288,7 +288,7 @@ INSERT INTO games
 
 &lt;p&gt;For Frachises:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;package com.mycom
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package com.mycom
 
 import javax.sql.DataSource
 
@@ -333,7 +333,7 @@ class Franchise {
 
 &lt;p&gt;And similarly for Games:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;package com.mycom
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package com.mycom
 
 import javax.sql.DataSource
 
@@ -493,7 +493,7 @@ class Game {
 
 &lt;p&gt;Since we aren&amp;rsquo;t using any styles, out base HTML page is a bit bare, but we still need it:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
 &amp;lt;meta charset=&amp;quot;utf-8&amp;quot; /&amp;gt;
@@ -531,7 +531,7 @@ class Game {
 
 &lt;p&gt;We start with the Application. This is easy enough:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;App = Ember.Application.create({});
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;App = Ember.Application.create({});
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;model&#34;&gt;Model&lt;/h3&gt;
@@ -540,7 +540,7 @@ class Game {
 
 &lt;p&gt;All you really need to know is that the methods on the model exist and do what they say:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;Store = {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;Store = {
     franchises: Ember.A(),
     defaultFranchise: function() {...},
     get: function(id) {...},
@@ -572,7 +572,7 @@ App.GameStore.init();
 
 &lt;p&gt;The router will define most of our application. When creating a router, you define the routes with names and paths. Once you have a name of a route, Ember will automatically look for routes and controllers with specific names. So, a route named &lt;code&gt;franchise&lt;/code&gt; will have a &lt;code&gt;FranchiseRoute&lt;/code&gt; and a &lt;code&gt;FranchiseController&lt;/code&gt;. See the naming conventions for more information.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;App.Router.map(function() {
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;App.Router.map(function() {
     this.resource(&#39;franchise&#39;, { path:&#39;/franchise/:franchise_id&#39;}, function() {
         this.resource(&#39;game&#39;, { path: &#39;/game/:game_id&#39; });
     });
@@ -594,7 +594,7 @@ App.GameStore.init();
 
 &lt;p&gt;Translating this to code, we get:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;App.ApplicationRoute = Ember.Route.extend({
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;App.ApplicationRoute = Ember.Route.extend({
     setupController: function(applicationController) {
         applicationController.set(&#39;franchises&#39;, App.GameStore.franchises);
     }
@@ -633,7 +633,7 @@ App.GameRoute = Ember.Route.extend({
 &lt;li&gt;&lt;code&gt;game&lt;/code&gt; - similarly, this template is loaded as the franchise&amp;rsquo;s &lt;code&gt;{{outlet}}&lt;/code&gt; and will have the implicit &lt;code&gt;game&lt;/code&gt; model.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&amp;quot;text/x-handlebars&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script type=&amp;quot;text/x-handlebars&amp;quot;&amp;gt;
     &amp;lt;h1&amp;gt;Franchises&amp;lt;/h1&amp;gt;
     &amp;lt;ul&amp;gt;
         {{#each franchise in franchises}}
@@ -743,7 +743,7 @@ App.GameRoute = Ember.Route.extend({
 
 &lt;p&gt;This is a fairly straight forward implementation which I have found to be very useful.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;class RestTemplateUtil {
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class RestTemplateUtil {
     private String baseUrl
     private String key
     private String format
@@ -774,7 +774,7 @@ App.GameRoute = Ember.Route.extend({
 
 &lt;p&gt;Once configured, the developer builds the template from the API path and a Set of parameter names. This Set is easily constructed from a Map of parameters and their values used directly by the RestTemplate.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;def templateUtil = new RestTemplateUtil()
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;def templateUtil = new RestTemplateUtil()
 templateUtil.baseUrl = &#39;http://api.example.com&#39;
 templateUtil.key = &#39;myKey&#39;
 templateUtil.format = &#39;json&#39;
@@ -843,7 +843,7 @@ println result
 
 &lt;p&gt;There&amp;rsquo;s one downside for Spring, a lot of jars are involved. To accomplish the above we need the following jars:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;aopalliance-1.0.jar
+&lt;pre&gt;&lt;code class=&#34;language-properties&#34;&gt;aopalliance-1.0.jar
 commons-logging-1.1.3.jar
 groovy-all-2.1.1.jar
 jcl-over-slf4j-1.7.5.jar
@@ -866,7 +866,7 @@ spring-webmvc-3.2.3.RELEASE.jar
 
 &lt;p&gt;We will order our files in the following directory structure:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;\---src
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;\---src
     +---main
     |   +---groovy
     |   |   \---com
@@ -891,7 +891,7 @@ spring-webmvc-3.2.3.RELEASE.jar
 
 &lt;p&gt;The deployment descriptor sets up 4 items: the welcome files list, set to index.html, &lt;a title=&#34;defaultHtmlEscape&#34; href=&#34;http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#spring.tld.htmlEscape&#34;&gt;default HTML escaping&lt;/a&gt; to prevent XSS attacks, the &lt;a title=&#34;Spring MVC DispatcherServlet&#34; href=&#34;http://static.springsource.org/spring/docs/3.2.3.RELEASE/spring-framework-reference/htmlsingle/#mvc-servlet&#34;&gt;DispatcherServlet&lt;/a&gt;, and which files Spring MVC will handle.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
 &amp;lt;web-app xmlns=&amp;quot;http://java.sun.com/xml/ns/javaee&amp;quot; version=&amp;quot;2.5&amp;quot;&amp;gt;
   &amp;lt;welcome-file-list&amp;gt;
     &amp;lt;welcome-file&amp;gt;index.html&amp;lt;/welcome-file&amp;gt;
@@ -923,7 +923,7 @@ spring-webmvc-3.2.3.RELEASE.jar
 
 &lt;p&gt;The *-servlet.xml file is automatically loaded by the DispatcherServlet based on the servlet name. In this case, Spring will look for spring-servlet.xml. We need to configure this file to do the following: scan our source code for controllers, note that Spring MVC will be driven by annotations (not necessarily needed, but will prevent issues in the future) and tell Spring MVC to resolves views in our WEB-INF/jsp folder.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
 &amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
   xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
   xmlns:p=&amp;quot;http://www.springframework.org/schema/p&amp;quot;
@@ -955,7 +955,7 @@ spring-webmvc-3.2.3.RELEASE.jar
 
 &lt;p&gt;Any groovy files with the @Controller annotation will be picked up Spring. The controller needs to hold methods that map to a specific URL (an html file, in this case). It will then need return a Model and or View. The string representing the view will be mapped to the corresponding JSP file under WEB-INF/jsp.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;package com.mycom.controller
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;package com.mycom.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
@@ -986,7 +986,7 @@ class DefaultController {
 
 &lt;p&gt;Lastly we configure our logging to print out all our debug statements, letting us know if everything is working correctly.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot; ?&amp;gt;
 &amp;lt;configuration debug=&amp;quot;true&amp;quot;&amp;gt;
   &amp;lt;appender name=&amp;quot;STDOUT&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
     &amp;lt;encoder&amp;gt;
